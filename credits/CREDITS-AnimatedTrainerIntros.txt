@@ -1,0 +1,16 @@
+Animated Trainer Intros [DBK Add-On] 1.0.1
+Resource: https://eeveeexpo.com/resources/1667/
+Author and plugin development: Lucidious89
+Additional supplied metadata credit: Luka S.J.
+The animation code builds on the Animated Pokemon System/EBDX work.
+Trainer sprites and mugshots originate in Pokemon games and retain their original ownership.
+
+Requires Pokemon Essentials v21.1 and Deluxe Battle Kit >=1.2.7.
+This resource is separate from the essentials-cli MIT license. Original notices,
+credits and author terms remain applicable. No permission for unrestricted
+redistribution of Pokemon artwork is claimed.
+
+Installation locally renames PBS/Plugins/[DBK] Animated Trainers to
+PBS/Plugins/[DBK] Animated Trainer Intros so that the DBK compiler can find it
+using the supplied metadata name. Plugin source files are unchanged.
+Pinned archive and installed-file hashes are in plugin-sources.json.

@@ -1,0 +1,14 @@
+Fermentris, local evolution of Shuckle
+Infinite Fusion sprite 213.213
+Artist: spidrone
+Source: ~/if-fuser/out/213.213/
+Fan art, not for commercial use. Not covered by the CLI MIT license.
+Front and front-derived back scaled with nearest-neighbor pixels.
+Menu icon derived from front. Shiny uses normal art for now.
+
+fusion 213.213
+source: custom:213/213.png@213
+artist: spidrone
+credits_row: 213.213,spidrone,main,
+Credit the artist in your hack. IF sprites are fan art, not for commercial use.
+HGSS insert: open a/0/0/4 NARC in PokeDsPic/GenIVSpriteReplacer, OpenPng *_160x80_indexed16, Write to narc (front slot + back slot).

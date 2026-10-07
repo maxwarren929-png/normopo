@@ -1,0 +1,19 @@
+Classic Normanhurst/Hornsby title and load-screen compositions
+
+Local layout, pixel backgrounds/window frames and asset-rendering helper:
+essentials-cli project, tools/render_titles.py.
+
+Pokemon wordmark source:
+Graphics/MODTS/logo.png supplied with Modular Title Screen v21 1.0.1.
+Resource: https://eeveeexpo.com/resources/1843/
+Original resource credits, including LaceEditing and Luka S.J., remain applicable.
+
+Charizard/Venusaur battle sprites and Power Clear Bold font:
+Supplied with Pokemon Essentials v21.1, imported unchanged.
+Essentials credit: Maruno and the contributors listed in the original project.
+Pokemon graphics/trademarks retain their original ownership.
+
+The local compositions are not newly drawn Pokemon artwork. They do not grant
+permission for unrestricted redistribution of the source artwork or fonts.
+Third-party artwork/font/resource terms are separate from the CLI MIT license.
+The imported Essentials release is not modified by this renderer.

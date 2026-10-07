@@ -1,0 +1,22 @@
+Bitmap Fonts Scripts, version 1
+Author: Hollow_Ego
+Resource: https://eeveeexpo.com/resources/286/
+Download: https://drive.google.com/open?id=1EXt8n3l-3V-cXbiYuzxcMo3qAZ6XC1O0
+Downloaded archive SHA-256:
+ce5045fbf486c1414cbc10ca80b78a87b6436f4916dbf3775c8f1b817929a317
+
+Code and XML to Ruby converter: Hollow_Ego.
+Font builder: andryblack, https://github.com/andryblack/fontbuilder
+
+The supplied Power Clear 20/36 PNG sheets and Bitmap_Font_Data/Logic scripts
+are copied unchanged. Their terms are not replaced by the CLI's MIT license.
+The resource page offers these files for use in games and requests the above
+credits; the archive contains no separate license file.
+
+Local Essentials v21.1 integration: scripts/0400-CLI_Bitmap_Fonts.rb.
+It intercepts Bitmap text drawing and measurement, adds selected accented
+letters/symbols, caches colored sheets, and adapts the standalone BitmapText
+API for proper bitmap/viewport disposal. It does not run the bundled Windows
+converter executable. Standard bitmap UI text has no drop shadow. Characters
+not covered by the bitmap font still use Essentials' TTF renderer rather
+than being dropped or replaced with question marks.

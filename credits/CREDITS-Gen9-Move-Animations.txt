@@ -1,0 +1,20 @@
+The Gen 9 Move Animation Project, resource version 2024-08-09
+https://eeveeexpo.com/resources/1480/
+Download: https://drive.google.com/file/d/1UoN6RCVmFFwakJb7T93MlTxxiuozeFQT/view
+Archive SHA-256: 931691c2e0b4b7817aa891aaa6653febdd7c7d0870dc657dad331f16752af24b
+
+Credits listed by the resource:
+Pokemon Reborn team
+Gen 8 project: StCooler, DarrylBD99, WolfPP, ardicoozer, riddlemeree, Drake Baku
+Attack sound effects: BellBlitzKing
+Gen 9 project: KRLW890, Nut0066, Toxillian, QuahogTheCreator, Lcorp, Shashu-Greninja
+
+Imported Data/PkmnAnimations.rxdata, Graphics and Audio assets unchanged.
+These third-party assets are not covered by the authoring CLI's MIT license.
+Local adaptations: recommended opacity guards in BattleAnimationPlayer.
+CLI_Move_Animations keeps DBK's existing Mega animation selection.
+Local Gojo adaptations clone Aura Sphere and Hyper Beam timing/sound sequences.
+CLI-Gojo-Blue/Red are recolored PRAS- Aura Sphere sheets; CLI-Gojo-Purple
+and its background are recolored PRAS- Hyper Beam sheets. Original sheets
+and sequences are preserved. Aura Sphere copies use normal blending and
+neutralized colored overlays so the selected blue/red palettes remain visible.

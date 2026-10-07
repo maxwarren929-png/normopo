@@ -1,0 +1,13 @@
+Cherubi Station building artwork:
+1. Ekat
+2. Heartlessdragoon 
+3. Vurtax
+4. Thedeadheroalistar
+5. Zein
+6. Aveontrainer
+7. Shyinn
+
+Railway wagon: Ekat, Heartlessdragoon, Redblueyellow.
+Source: https://eeveeexpo.com/resources/621/
+Building and wagon enlarged 2x with nearest-neighbour sampling.
+Paving, rail, fence, bench, labels and signal cabinet: original local artwork.

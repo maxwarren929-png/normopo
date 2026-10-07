@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "size": 200485341,
+  "sha256": "4f788434408daffc44bca95a289313b4bf7d937503da8b2708b12375508fbcea",
+  "chunks": [
+    {
+      "url": "chunks/00000-d081f32f84846488483db72b7414222f727cc2e21c1ed075bcb394ca742de143.bin",
+      "size": 33554432,
+      "sha256": "d081f32f84846488483db72b7414222f727cc2e21c1ed075bcb394ca742de143"
+    },
+    {
+      "url": "chunks/00001-d23a65cce63e8a7f49841ef3b8f361b3cdeca467b47472c42fe3e4c5824b3183.bin",
+      "size": 33554432,
+      "sha256": "d23a65cce63e8a7f49841ef3b8f361b3cdeca467b47472c42fe3e4c5824b3183"
+    },
+    {
+      "url": "chunks/00002-c5b0d12cf87c2c23cb8fdbf7ff0acdb960def282555862e695a04d218442a54f.bin",
+      "size": 33554432,
+      "sha256": "c5b0d12cf87c2c23cb8fdbf7ff0acdb960def282555862e695a04d218442a54f"
+    },
+    {
+      "url": "chunks/00003-722d643a7dd7ecf25635f759314cc2fc2b73dc2014ca01afa6ca399fc345ab28.bin",
+      "size": 33554432,
+      "sha256": "722d643a7dd7ecf25635f759314cc2fc2b73dc2014ca01afa6ca399fc345ab28"
+    },
+    {
+      "url": "chunks/00004-d56d0850ada1bd5a157360bcdddadff1876b8ecf0bb84855a6728ab3244df274.bin",
+      "size": 33554432,
+      "sha256": "d56d0850ada1bd5a157360bcdddadff1876b8ecf0bb84855a6728ab3244df274"
+    },
+    {
+      "url": "chunks/00005-fbb28a41a58013d8de7f6cbf2a18fa07b474f9091fa50a13b46b56c2b8ca4e43.bin",
+      "size": 32713181,
+      "sha256": "fbb28a41a58013d8de7f6cbf2a18fa07b474f9091fa50a13b46b56c2b8ca4e43"
+    }
+  ]
+}

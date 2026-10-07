@@ -1,0 +1,16 @@
+Gojo Regional Lucario, species LUCARIO form 3
+Infinite Fusion sprite 296.296j
+Artist: hilune
+Reference: Satoru Gojo from Jujutsu Kaisen
+Source: ~/if-fuser/out/296.296j/
+Fan art, not for commercial use. Not covered by the CLI MIT license.
+Native front art scaled exactly 2x with nearest-neighbor pixels.
+Temporary back mirrors the full front, without the HGSS export crop.
+Menu icon derived from front. Shiny uses the same art for now.
+
+fusion 296.296j
+source: custom:296/296j.png@296
+artist: hilune
+credits_row: 296.296j,hilune,alt,
+Credit the artist in your hack. IF sprites are fan art, not for commercial use.
+HGSS insert: open a/0/0/4 NARC in PokeDsPic/GenIVSpriteReplacer, OpenPng *_160x80_indexed16, Write to narc (front slot + back slot).

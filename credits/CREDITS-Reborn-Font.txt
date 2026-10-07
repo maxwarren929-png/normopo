@@ -1,0 +1,27 @@
+PokemonEmerald font
+
+Copyright aztecwarrior28 2020.
+Based on "Pokemon Emerald Pro" by crystalwalrein, built with FontStruct.
+FontStruct is a trademark of FontStruct.com.
+
+License: Creative Commons Attribution-ShareAlike 3.0 Unported.
+https://creativecommons.org/licenses/by-sa/3.0/
+https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+Creators:
+https://fontstruct.com/fontstructors/show/1606234/aztecwarrior28
+https://fontstruct.com/fontstructors/show/387548/crystalwalrein
+
+This unmodified font is the original Pokemon Reborn font backup published
+by Xephy's unofficial Reborn Japanese translation project, not its patched
+Japanese replacement. No Reborn game code or artwork was imported.
+Source pinned to commit de2897db4e5856b79c281ee2610597dae8fa093b:
+https://github.com/Xephy/reborn-19.5.43-ja/blob/de2897db4e5856b79c281ee2610597dae8fa093b/jp_translation/backup/pokemonemerald.ttf
+License provenance:
+https://github.com/Xephy/reborn-19.5.43-ja/blob/de2897db4e5856b79c281ee2610597dae8fa093b/NOTICE
+
+SHA-256: b8ada427a6c44c78e3a551813fb3cfa0b6c9ceba1d10942ebb81fdcee3f82eb0
+
+Local status: retained as an unused font asset. NPC labels, dialogue and menus
+have been restored to the Power Green font family.
+The CLI's MIT license does not apply to this font.

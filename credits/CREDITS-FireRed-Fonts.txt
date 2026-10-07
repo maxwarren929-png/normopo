@@ -1,0 +1,27 @@
+Local FireRed bitmap-font adaptation
+
+Reference assets: Pokemon FireRed Latin Normal and Latin Small fonts.
+Original game artwork: Nintendo / Game Freak / Creatures.
+Reference repository: https://github.com/pret/pokefirered
+Pinned revision: 037335f4c725d7c9aecdac87066f2002b4bd7e14
+
+Source PNG SHA-256:
+latin_normal.png: ab9bc0e79857c1584b267c8955beb0422e40ca52cc081a5455ad8a328edde324
+latin_small.png: 6523b1cb5055f71bb705d6b687343a94494c73a024f4a96fe10a
+
+Conversion: tools/build_firered_fonts.py, requires Pillow.
+Glyph foreground is extracted from palette index 1. The original shadow and
+opaque background are excluded. Atlas pixels use nearest-neighbor integer
+scaling only: 2x normal/small, 1x tiny, 3x large. Character advances come from
+the game's width tables. ASCII punctuation absent from the original character
+map has locally drawn pixel shapes. ASCII $ uses the Pokemon currency glyph.
+
+These assets are NOT covered by the CLI's MIT license. No separate permission
+to redistribute the original game artwork is claimed. The PNGs and this file
+remain in the ignored local game asset tree. Do not include them in a public
+release without confirming your rights to do so.
+
+The drawing adapter is based on Hollow_Ego's Bitmap Fonts Scripts approach;
+see CREDITS-Bitmap-Fonts.txt for those credits. Its original Power Clear sheets
+remain available to the standalone BitmapText API, but are no longer selected
+for the standard UI.

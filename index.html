@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" style="height: 100%">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Normanhurst</title>
+    <style>
+      .Gamepad-controller.is-active {
+        box-shadow: 0 0 50px currentColor;
+      }
+    </style>
+    <script>
+(()=>{
+'use strict';
+const expected={"size": 200485341, "sha256": "4f788434408daffc44bca95a289313b4bf7d937503da8b2708b12375508fbcea"};
+const originalFetch=window.fetch.bind(window);
+const base=new URL('.',document.baseURI);
+const target=new URL('knight-blade-howling-of-kerberos.mkxpz',base);
+const manifestURL=new URL('game-manifest.json',base);
+const hex=bytes=>Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');
+window.fetch=async function(input,init){
+ let url;
+ try {url=new URL(input instanceof Request?input.url:String(input),document.baseURI)}
+ catch {return originalFetch(input,init)}
+ if(url.origin!==location.origin||url.pathname!==target.pathname||url.search||url.hash)
+  return originalFetch(input,init);
+ const method=(init?.method||(input instanceof Request?input.method:'GET')).toUpperCase();
+ if(method!=='GET'&&method!=='HEAD')return originalFetch(input,init);
+ const options={signal:init?.signal||(input instanceof Request?input.signal:undefined)};
+ const response=await originalFetch(manifestURL,options);
+ if(!response.ok)throw Error('Game manifest unavailable: '+response.status);
+ const manifest=await response.json();
+ if(manifest.version!==1||manifest.size!==expected.size||manifest.sha256!==expected.sha256||
+    !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid game manifest');
+ let total=0;
+ for(const [index,chunk] of manifest.chunks.entries()){
+  if(!Number.isSafeInteger(chunk.size)||chunk.size<=0||chunk.size>=100*1024*1024||
+     !/^[a-f0-9]{64}$/.test(chunk.sha256)||
+     chunk.url!=='chunks/'+String(index).padStart(5,'0')+'-'+chunk.sha256+'.bin')
+   throw Error('Invalid game chunk');
+  total+=chunk.size;
+ }
+ if(total!==expected.size)throw Error('Invalid game length');
+ const headers={'Content-Type':'application/octet-stream','Content-Length':String(total)};
+ if(method==='HEAD')return new Response(null,{headers});
+ const chunks=[];
+ for(const chunk of manifest.chunks){
+  const part=await originalFetch(new URL(chunk.url,base),options);
+  if(!part.ok)throw Error('Game chunk unavailable: '+part.status);
+  const bytes=await part.arrayBuffer();
+  if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
+   throw Error('Game chunk verification failed');
+  chunks.push(bytes);
+ }
+ return new Response(new Blob(chunks,{type:'application/octet-stream'}),{headers});
+};
+})();
+</script>
+<script type="module" crossorigin src="./assets/normanhurst-2533428a48086560af37bfa078fc0969e8c9621ee1153f546cf3c3083a8836f6.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-lP0ZUypO.css">
+  </head>
+  <body
+    style="
+      height: 100%;
+      overflow: hidden;
+      font-family: Roboto;
+      color: #fff;
+      background-color: #000;
+    "
+  >
+    <script src="./coi-serviceworker.min.js"></script>
+    <script>
+      // Send a dummy message every 5 seconds to prevent coi-serviceworker.js from being killed by Firefox for taking too long to fetch large files
+      if (navigator.serviceWorker.controller !== null) {
+        setInterval(() => {
+          navigator.serviceWorker.controller.postMessage({ type: "heartbeat" });
+        }, 5000);
+      }
+    </script>
+    <div
+      id="spinner-target"
+      style="
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div
+        id="progressbar-target"
+        style="display: none; width: 70px; height: 70px"
+      ></div>
+      <p id="user-activation-prompt" style="display: none; font-size: 100px">
+        ▶
+      </p>
+    </div>
+    <canvas
+      id="nostalgist-canvas"
+      style="position: fixed; left: 0; top: 0; width: 100%; height: 100%"
+    ></canvas>
+    <div id="gamepad-target"></div>
+  <style>
+#cli-controls{position:fixed;z-index:1000;right:8px;top:8px;background:#111d;color:white;padding:6px 9px;font:12px sans-serif;border-radius:4px;opacity:.25}#cli-controls:hover,#cli-controls:focus-within{opacity:1}
+#cli-loading{position:fixed;z-index:999;bottom:8%;width:100%;text-align:center;color:white;font:14px sans-serif;pointer-events:none}
+</style><div id="cli-controls"><button type="button" id="cli-focus">Focus game</button> Enter: confirm · X/Esc: back · Z: menu · Arrows: move</div>
+<p id="cli-loading">Loading Pokémon Normanhurst. Engine files are cached on this machine.</p>
+<script>
+(()=>{const held=new Map();const canvas=()=>window.__cliNostalgist?.getCanvas()||document.getElementById('nostalgist-canvas')||document.getElementById('canvas');
+const releaseAll=()=>{for(const button of held.values())window.__cliNostalgist?.pressUp(button);held.clear()};
+window.addEventListener('blur',releaseAll);document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAll()});
+const focus=()=>{const c=canvas();if(c){c.tabIndex=0;c.focus({preventScroll:true})}};
+document.getElementById('cli-focus').addEventListener('click',focus);
+document.addEventListener('pointerdown',e=>{if(e.target===canvas())focus()});
+window.addEventListener('cli-player-ready',()=>{document.getElementById('cli-loading')?.remove();focus()});
+for(const type of ['keydown','keyup'])document.addEventListener(type,e=>{
+ if(type==='keyup'&&held.has(e.code)){const alias=held.get(e.code);held.delete(e.code);window.__cliNostalgist?.pressUp(alias);e.preventDefault();e.stopImmediatePropagation();return}
+ if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.target.isContentEditable)return;
+ if(['Enter','ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
+ const alias=e.key==='Enter'?'a':e.key==='Escape'?'b':null;
+ if(type==='keydown'&&alias&&window.__cliNostalgist){e.preventDefault();e.stopImmediatePropagation();if(!held.has(e.code)){held.set(e.code,alias);window.__cliNostalgist.pressDown(alias)}}
+},true);
+})();
+</script></body>
+</html>

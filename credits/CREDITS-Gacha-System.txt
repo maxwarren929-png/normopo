@@ -1,0 +1,23 @@
+Gacha System 1.0.0 for Essentials v21.1
+Author: DragonX
+Resource: https://eeveeexpo.com/resources/1902/
+Download: https://drive.google.com/file/d/1uysX0cB5rIanOE5LJE-Sbw8T939qAJ09/view
+Archive SHA-256: 9f27e1b3d1613c9b0ab443a28bf2a22d70e0f91ce5d2d0b742984a1eb7427693
+
+Imported plugin and graphics from the published archive. No separate license
+file was included. Third-party code/assets are not relicensed under the CLI MIT
+license. Keep the author's credit with use of this resource.
+
+Local demo adaptations:
+- Removed forced saves after charging for pulls. Save normally to keep rewards.
+- Shortened control labels and laid out rate text to fit the demo canvas.
+- Checked reward capacity before payment, avoiding lost prizes when full.
+- Reused the rainbow text bitmap instead of allocating one every update.
+- Disposed owned background/animation bitmaps and guarded double disposal.
+- Corrected calls to the Essentials v21.1 Pokedex screen API.
+- Restored the prior BGM when leaving the gacha.
+- Corrected the Gacha Ticket's plural and placeholder description.
+
+Default example prize pools and ticket costs are unchanged. This version's
+Pokemon prize schema has no explicit form field. Our regional forms have not
+been added to its pools. A full party sends Pokemon prizes to PC storage.

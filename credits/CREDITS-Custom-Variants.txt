@@ -1,0 +1,10 @@
+Custom variant artwork, Infinite Fusion native 96x96 cells.
+Third-party fan art is not covered by the CLI MIT license.
+Sources resolved through ~/if-fuser/server.py.
+Exactly 2x nearest-neighbor art. Backs mirror front art, not genuine rear views.
+Shiny art currently matches normal art. Icons are derived from fronts.
+
+VENUSAUR form 2: 3.3d, artist lobsterandlobster
+GALLADE form 2: 290.288a, artist sr.coiso
+GARDEVOIR form 3: 197.287d, artist qaffeine
+ABSOL form 3: 310.287j, artist pinkpalkia

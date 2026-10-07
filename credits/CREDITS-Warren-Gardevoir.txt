@@ -1,0 +1,8 @@
+Warren Regional Gardevoir, species GARDEVOIR form 2
+Infinite Fusion sprite 324.287a, Empoleon + Gardevoir
+Artist: pinkpalkia
+Source: native IF cell resolved by ~/if-fuser/server.py
+Community reference: Focalors from Genshin Impact
+Fan art, not for commercial use. Not covered by the CLI MIT license.
+Art scaled exactly 2x, icon derived from front. Temporary back mirrors
+the full front art; a true rear view is not available. Shiny uses normal art.

@@ -1,0 +1,36 @@
+World/UI plugins installed for the local Essentials CLI demo
+
+Event Indicators 2.3
+Resource: https://eeveeexpo.com/resources/1634/
+Credits: wrigty12, Luka S.J.
+
+Water Puddle Animation 1.1
+Resource: https://eeveeexpo.com/resources/1900/
+Credits: C4RL0SPR, Copilot. Pokemon Essentials team for the underlying engine.
+The supplied ripple sheet is retained. CLI_puddle.png is a local five-column XP-layout derivative.
+
+Living World News
+Resource: https://eeveeexpo.com/resources/1883/
+Author: eyebull21 / RobbieStokes21, for Pokemon Forever.
+Based on Pokemon Essentials v21.1 by Maruno.
+Optional Mystery Gift password UI credits: KleinStudio, Richard PT, Maruno.
+The downloaded v1.1.0 release registers version 1.0.0 in its unchanged meta.txt.
+
+Free Market 2.0.3
+Resource: https://eeveeexpo.com/resources/1692/
+Credits: wrigty12.
+
+Modular Title Screen v21 1.0.1
+Resource: https://eeveeexpo.com/resources/1843/
+Essentials v21.1 port by LaceEditing of Luka S.J.'s Modular Title Screen.
+Full supplied metadata credits:
+LaceEditing, Roza, Ancurio et al., AvatarMonkeyKirby, Marin, Boushy,
+MiDas Mike, Brother1440, FL., PinkMan, Genzai Kawakami, Popper, help-14,
+Rataime, IceGod64, Savordez, SoundSpawn, Jacob O. Wobbrock, the__end,
+KitsuneKoutaWachunga, Lisa Anthony, Venom12, Near, Fantastica, Luka S.J.
+The local demo logo is separate from the supplied example logos.
+
+These third-party scripts and assets are not covered by the essentials-cli MIT license.
+Their original notices and author attribution remain applicable. No ownership of
+Pokemon artwork/audio or permission for unrestricted redistribution is claimed.
+Pinned downloads, installed hashes and local patches are in plugin-sources.json.

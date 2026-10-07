@@ -1,0 +1,21 @@
+Train-interior battle artwork installed from Altarax's public Do Androids Dream Of Mareep Resource Pack.
+Source: https://eeveeexpo.com/resources/1980/
+Original archive: ResourcePackDADOM.rar
+
+Resource-page credits:
+Battlebacks: carchagui, princess-phoenix, Kyle-Dove, Geoswag (edits).
+
+Archive credits, preserved because attribution is not mapped to individual files:
+SkidMarc25 - Johto gen 3 tileset
+Pablus94 - electricity poles base
+TheDeadHeroAlistair - Project Heliodor tiles
+Kyledove - Trees
+TOBALCR - Gravestones, Camera tile
+Reborn team - Various tiles, facility map design influence
+Ekat - Various tiles
+cheekyinkling, Lorc, Delapouite - Icons
+DontJoelMeGaming - Gabby & Ty sprites
+DRAGON-STUDIO - clock ticking & explosion sfx
+
+Installed artwork: train_bg.png and train_message.png, unmodified.
+train_base0.png and train_base1.png are locally generated transparent placeholders so the carriage floor remains visible without outdoor battle platforms.
