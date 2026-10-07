@@ -2,7 +2,7 @@ import unittest
 import zlib
 
 from essentials_cli import marshal as rm
-from tools.build_web_test import buffered_animation_scripts, deferred_battle_animation_scripts
+from tools.build_web_test import buffered_animation_scripts, deferred_battle_animation_scripts, gpu_gacha_text_scripts
 
 
 START_GAME = b'''module Game
@@ -45,6 +45,22 @@ class WebPackageTests(unittest.TestCase):
     def archive(self, source, name=b'MiscPBSData'):
         return rm.dumps([[1, rm.RubyString(name), rm.RubyString(zlib.compress(source))],
                          [2, rm.RubyString(b'Other'), rm.RubyString(zlib.compress(b'puts "unchanged"'))]])
+
+    def test_web_gacha_text_uses_cached_white_glyphs_and_gpu_tone(self):
+        original = self.archive(b'module CLINormanhurstGacha\n  module SceneMenu\n  end\nend\n', b'CLI_Normanhurst_Gacha')
+        result = rm.loads(gpu_gacha_text_scripts(original))
+        source = zlib.decompress(result[0][2].data)
+        self.assertIn(b'Color.new(248, 248, 248)', source)
+        self.assertIn(b'.tone = Tone.new(r - 248, g - 248, b - 248)', source)
+        self.assertIn(b'return super unless CLINormanhurstGacha.available?', source)
+        self.assertEqual(zlib.decompress(result[1][2].data), b'puts "unchanged"')
+        self.assertNotIn(b'Tone.new', zlib.decompress(rm.loads(original)[0][2].data))
+
+    def test_web_gacha_patch_rejects_unknown_layout(self):
+        with self.assertRaisesRegex(ValueError, 'one Normanhurst'):
+            gpu_gacha_text_scripts(self.archive(b'  module SceneMenu\n'))
+        with self.assertRaisesRegex(ValueError, 'one gacha SceneMenu'):
+            gpu_gacha_text_scripts(self.archive(b'no matching module', b'CLI_Normanhurst_Gacha'))
 
     def test_buffers_only_battle_animation_loader(self):
         source = b'a = load_data("Data/PkmnAnimations.rxdata")\nb = load_data("Data/other.dat")'

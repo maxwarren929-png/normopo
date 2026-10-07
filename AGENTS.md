@@ -9,7 +9,7 @@ For completed Normanhurst changes:
 
 1. Preserve edition scope. Shared scripts/plugins/assets also affect Demo and Hornsby; gate Normanhurst behavior through its compiled edition records. Do not regenerate reverted story maps without approval.
 2. Run appropriate tests and inspect screenshots for visible changes.
-3. Rebuild/export the static package when game or frontend code changes. Publish matching archive chunks, manifest and frontend identity together.
+3. Rebuild/export the static package when game or frontend code changes. Use `--gpu-gacha-text` with the existing buffered/deferred/no-path-cache flags for the web build. It avoids per-frame bitmap-font tint work in gacha while preserving desktop behavior. Publish matching archive chunks, manifest and frontend identity together.
 4. Include changed source, regression tests, credits/provenance and concise change/test documentation in the deployment commit.
 5. Push normally to the authorized repo, wait for Pages Actions, and check the live URL before claiming deployment succeeded.
 

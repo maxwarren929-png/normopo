@@ -38,7 +38,7 @@
     <script>
 (()=>{
 'use strict';
-const expected={"size": 200490099, "sha256": "f8af5d222047a9d2fbcbaa270f62a7764da366b1e67f6545a40baaa9f31061a1"};
+const expected={"size": 200492168, "sha256": "6fe74d996e5ef9413d5999cb5d1947d2a0c7b8fa69de0483722848c9f6f81752"};
 const originalFetch=window.fetch.bind(window);
 const base=new URL('.',document.baseURI);
 const target=new URL('knight-blade-howling-of-kerberos.mkxpz',base);
@@ -82,7 +82,7 @@ window.fetch=async function(input,init){
 };
 })();
 </script>
-<script type="module" crossorigin src="./assets/normanhurst-4bea8986786efd5bdcf33dd5d316d0b21067f1526331e7fd9499dd20d34b0102.js"></script>
+<script type="module" crossorigin src="./assets/normanhurst-b958f32b5a6cd5476ed1e9ab53c66ccb7add372a4c10e65cc16471593a07cf59.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-lP0ZUypO.css">
   </head>
   <body
@@ -178,7 +178,7 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
  const paint=()=>{for(const b of buttons)b.dataset.held=String([...held.values()].includes(b.dataset.gameButton))};
  const hold=(id,button)=>{if(!window.__cliNostalgist)return;if(pending.has(id))release(id);if(held.has(id))return;const already=[...held.values()].includes(button);held.set(id,button);started.set(id,performance.now());if(!already)window.__cliNostalgist.pressDown(button);paint()};
  const release=id=>{if(pending.has(id)){clearTimeout(pending.get(id));pending.delete(id)}const button=held.get(id);if(!button)return;held.delete(id);started.delete(id);if(![...held.values()].includes(button))window.__cliNostalgist?.pressUp(button);paint()};
- const pointerUp=id=>{const minimum=['up','down','left','right'].includes(held.get(id))?32:50;const delay=minimum-(performance.now()-(started.get(id)??0));if(delay>0){if(!pending.has(id))pending.set(id,setTimeout(()=>release(id),delay))}else release(id)};
+ const pointerUp=id=>{const minimum=['up','down','left','right'].includes(held.get(id))?80:50;const delay=minimum-(performance.now()-(started.get(id)??0));if(delay>0){if(!pending.has(id))pending.set(id,setTimeout(()=>release(id),delay))}else release(id)};
  const releaseAll=()=>{for(const timer of pending.values())clearTimeout(timer);pending.clear();for(const button of new Set(held.values()))window.__cliNostalgist?.pressUp(button);held.clear();started.clear();paint()};
  window.addEventListener('blur',releaseAll);
  document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAll()});
@@ -221,7 +221,7 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
  const changed=()=>{const next=(coarse.matches||window.innerWidth<=720)?(window.innerWidth>window.innerHeight?'landscape':'portrait'):'desktop';if(next!==mode){releaseAll();mode=next}layout()};
  window.addEventListener('resize',changed);
  coarse.addEventListener('change',changed);
- window.addEventListener('cli-player-ready',()=>{for(const b of buttons)b.disabled=false;document.getElementById('cli-loading')?.remove();layout();focus()});
+ window.addEventListener('cli-player-ready',()=>{for(const b of buttons)b.disabled=false;document.getElementById('cli-loading')?.remove();if(coarse.matches||window.innerWidth<=720)window.__cliNostalgist?.resize({width:512,height:384});layout();focus()});
  layout();
 })();
 </script></body>

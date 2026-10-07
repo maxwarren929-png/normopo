@@ -14,13 +14,18 @@ class NormanhurstRoomTests(unittest.TestCase):
         self.events = {event["id"]: event for event in self.room["events"]}
 
     def test_only_gacha_and_gym_npcs_are_visible(self):
-        visible = {event["id"] for event in self.events.values() if event.get("graphic")}
-        self.assertEqual(visible, {7, 8})
-        self.assertEqual(set(self.events), {2, 4, 7, 8})
+        npcs = {event["id"] for event in self.events.values() if event.get("graphic", "").startswith("trainer_")}
+        self.assertEqual(npcs, {7, 8})
+        self.assertEqual(set(self.events), {2, 4, 7, 8, 9})
         self.assertEqual(self.events[8]["position"], [10, 2])
         self.assertEqual(self.events[7]["position"], [2, 7])
         self.assertEqual(self.events[8]["actions"][-1]["script"], "CLINormanhurstGacha.scientist")
         self.assertEqual(self.events[7]["actions"][-1]["script"], "CLINormanhurstGymTests.menu")
+
+    def test_pc_terminal_opens_standard_storage_menu(self):
+        self.assertEqual(self.events[9]["graphic"], "CLI_PC")
+        self.assertEqual(self.events[9]["position"], [6, 2])
+        self.assertEqual(self.events[9]["actions"], [{"script": "pbPokeCenterPC"}])
 
     def test_invisible_initialization_and_follower_anchor_survive(self):
         self.assertEqual(self.events[2]["trigger"], "autorun")

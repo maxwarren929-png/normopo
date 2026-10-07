@@ -26,7 +26,7 @@ The compiled Normanhurst gym-trainer records gate this adaptation. Demo and Horn
 
 Touchscreens and narrow browser windows get a directional pad plus Confirm, Back and Menu buttons. In gacha, Menu opens the rates sheet. Portrait puts controls beneath the game; landscape puts them on either side. Rotate to landscape if the screen feels small.
 
-The controls use Nostalgist's paired button API, track individual pointers and share a reference count with keyboard bindings. They release on pointer cancellation, capture loss, window blur, hidden tabs and orientation changes, not ordinary toolbar-height changes. Brief action taps last at least 50 ms; direction taps last at least 32 ms. Safari layout, reload protection and speed-shortcut changes are described in [safari-controls-fix.md](safari-controls-fix.md).
+The controls use Nostalgist's paired button API, track individual pointers and share a reference count with keyboard bindings. They release on pointer cancellation, capture loss, window blur, hidden tabs and orientation changes, not ordinary toolbar-height changes. Brief action taps last at least 50 ms; direction taps last at least 80 ms. Banner navigation and storage access are described in [banner-controls-pc.md](banner-controls-pc.md). Safari layout, reload protection and speed-shortcut changes are described in [safari-controls-fix.md](safari-controls-fix.md).
 
 The small sample XYZ/save-state overlay is disabled. Desktop keyboard bindings and scaling are unchanged. The mobile canvas preserves the 4:3 aspect ratio and uses nearest-neighbour scaling. Integer CSS scaling is used where it fits; small phones need fractional downscaling to show the whole screen.
 

@@ -9,7 +9,7 @@ function replaceOnce(source,before,after){
 
 function patchPlayerJS(source,identity){
  // Keep the known-working XP C binding; map physical Enter to it in the UI.
- source=replaceOnce(source,'input_player1_a:`c`','input_player1_a:`c`');
+ source=replaceOnce(source,'input_player1_a:`c`','input_player1_up:`up`,input_player1_down:`down`,input_player1_left:`left`,input_player1_right:`right`,input_player1_a:`c`');
  source=replaceOnce(source,'element:`#nostalgist-canvas`,retroarchConfig:',
                     'element:`#nostalgist-canvas`,retroarchConfig:');
  // Normanhurst contains its own assets and does not use the XP sample RTP.

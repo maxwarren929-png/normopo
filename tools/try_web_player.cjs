@@ -47,13 +47,18 @@ const {createFrontendTransform}=require('./web_player_frontend.cjs');
  if(process.argv.includes('--gameplay')){
   await key('Enter');await p.waitForTimeout(6000);
   await p.screenshot({path:path.join(output,'local-player-map.png'),timeout:15000});
+  const worldPosition=async()=>{
+   const code='import sys,json,io\nfrom PIL import Image\ni=Image.open(io.BytesIO(sys.stdin.buffer.read())).convert("RGB")\np=[(n%i.width,n//i.width) for n,c in enumerate(i.getdata()) if c==(35,107,118)]\nif not p: raise RuntimeError("PC screen not visible")\nx=sum(v[0] for v in p)/len(p)*512/i.width\ny=sum(v[1] for v in p)/len(p)*384/i.height\nprint(json.dumps({"x":round(6-(x-255.5)/32),"y":round(2-(y-177)/32)}))';
+   return JSON.parse(execFileSync('python3',['-W','ignore::DeprecationWarning','-c',code],{input:await p.locator('canvas').screenshot()}).toString());
+  };
+  const walkWorld=async(direction,delay=100)=>{if(mobile)await touch(direction,delay);else await p.keyboard.press({up:'ArrowUp',down:'ArrowDown',right:'ArrowRight',left:'ArrowLeft'}[direction],{delay});await p.waitForTimeout(600)};
+  const reach=async(x,y)=>{for(let i=0;i<30;i++){const at=await worldPosition();if(at.x===x&&at.y===y)return;await walkWorld(at.y!==y?(at.y>y?'up':'down'):(at.x>x?'left':'right'))}throw new Error('Could not reach room position '+x+','+y)};
   if(process.argv.includes('--gacha')){
    const step=async(direction,delay)=>{if(mobile)await touch(direction,delay);else await p.keyboard.press({up:'ArrowUp',right:'ArrowRight',left:'ArrowLeft'}[direction],{delay});await p.waitForTimeout(600)};
    // Anchor at the eastern map edge (11,5), step west, then walk north
    // to the gacha scientist (10,2). Stable event positions survive room cleanup.
-   await step('right',1800);
-   await step('left',100);
-   await step('up',1800);
+   if(process.argv.includes('--banners')||process.argv.includes('--pc')){await reach(10,5);await walkWorld('up',1000)}
+   else{await step('right',1800);await step('left',100);await step('up',1800)}
    await key('Enter');await p.waitForTimeout(6000);
    await p.screenshot({path:path.join(output,'local-gacha-grant.png'),timeout:15000});
    await key('Enter');await p.waitForTimeout(6000);
@@ -64,6 +69,14 @@ const {createFrontendTransform}=require('./web_player_frontend.cjs');
    for(let i=0;i<5&&!/[pf]ulls\s+left:\s*30/i.test(text);i++){await key('Enter');await p.waitForTimeout(2000);text=await ocr()}
    if(!/[pf]ulls\s+left:\s*30/i.test(text))throw new Error('Gacha 30-pull overlay was not found: '+text);
    await p.screenshot({path:path.join(output,'local-gacha-pool.png'),timeout:15000});
+   if(process.argv.includes('--banners')){
+    for(const [i,direction,name] of [[1,'ArrowRight',/Hoenn/i],[2,'ArrowRight',/[PF]aldea/i],[3,'ArrowRight',/K[ao]nto/i],[4,'ArrowLeft',/[PF]aldea/i],[5,'ArrowLeft',/Hoenn/i],[6,'ArrowLeft',/K[ao]nto/i]]){
+     await key(direction);await p.waitForTimeout(1200);text=await ocr();
+     if(!name.test(text))throw new Error('Banner navigation step '+i+' failed: '+text);
+     await p.screenshot({path:path.join(output,'local-gacha-banner-'+i+'.png'),timeout:15000});
+    }
+    record('Verified all three banners in both directions, including wraparound.');
+   }
    await key('z');await p.waitForTimeout(2000);
    await p.screenshot({path:path.join(output,'local-gacha-rates.png'),timeout:15000});
    await key('Escape');await p.waitForTimeout(1000);
@@ -77,6 +90,14 @@ const {createFrontendTransform}=require('./web_player_frontend.cjs');
    record('Verified browser gacha: 30 tickets granted, single pull leaves 29.');
    await p.screenshot({path:path.join(output,'local-gacha-after-pull.png'),timeout:15000});
    await key('Escape');await p.waitForTimeout(1000);
+  }
+  if(process.argv.includes('--pc')){
+   if(!process.argv.includes('--gacha'))throw new Error('--pc currently requires --gacha');
+   await reach(6,3);await walkWorld('up',200);await key('Enter');await p.waitForTimeout(2000);
+   await p.screenshot({path:path.join(output,'local-pc-boot.png'),timeout:15000});
+   for(let i=0;i<4;i++){await key('Enter');await p.waitForTimeout(1500)}
+   await p.screenshot({path:path.join(output,'local-pc-boxes.png'),timeout:15000});
+   await key('Escape');await key('Escape');await key('Escape');
   }
   if(mobile)await touch('down',300);else await p.keyboard.press('ArrowDown',{delay:300});await p.waitForTimeout(500);
   await p.screenshot({path:path.join(output,'local-player-walk.png'),timeout:15000});

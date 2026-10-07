@@ -1,6 +1,6 @@
 {
-  "python_tests": 89,
-  "node_tests": 24,
+  "python_tests": 92,
+  "node_tests": 25,
   "native_normanhurst_gym_and_plugin_ui": "passed",
   "native_demo_plugin_ui": "passed",
   "browser": "Chrome 149, touch emulation and SwiftShader",
@@ -13,21 +13,24 @@
     390
   ],
   "browser_checks": [
-    "one-time 30-ticket grant",
-    "rates sheet",
-    "single pull: 30 -> 29",
-    "walking",
-    "pause menu and back",
-    "orientation layout"
+    "all 3 banners: right cycle and wraparound",
+    "all 3 banners: left cycle and wraparound",
+    "30-ticket grant and actual pull to 29",
+    "PC terminal opens Box 1 storage",
+    "walking/menu/back and mobile layout"
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "f8af5d222047a9d2fbcbaa270f62a7764da366b1e67f6545a40baaa9f31061a1",
+  "game_archive_sha256": "6fe74d996e5ef9413d5999cb5d1947d2a0c7b8fa69de0483722848c9f6f81752",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
     "physical_safari_tested": false,
     "new_browser_probe_run": false,
     "archive_unchanged": true
-  }
+  },
+  "browser_checked_archive_sha256": "8589165d4f6e3a9a9bddff184104281388387594769573620034d30875e4f585",
+  "final_archive_difference": "Added pause-menu PC shortcut for existing saves; terminal and banner implementations unchanged.",
+  "gpu_gacha_text_staged_only": true,
+  "physical_safari_tested": false
 }

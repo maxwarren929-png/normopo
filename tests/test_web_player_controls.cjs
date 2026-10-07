@@ -35,7 +35,8 @@ test('phone layout reserves touch space, native backing buffer, and disabled-unt
  h.down('a');assert.deepEqual(h.calls,[]);
  h.window.__cliNostalgist=h.engine;h.fire(h.window,'cli-player-ready');
  assert.equal(h.buttons.every(b=>!b.disabled),true);
- assert.deepEqual(h.sizes,[]);
+ assert.deepEqual(h.sizes,[{width:512,height:384}]);
+ h.window.innerHeight=744;h.fire(h.window,'resize');assert.equal(h.sizes.length,1);
 });
 
 test('paired pointer inputs and multi-touch release independently',()=>{
@@ -104,6 +105,11 @@ test('common keyboard bindings share the same reference count as touch',()=>{
  const h=harness();h.key('keydown','ArrowUp');h.down('up',2);h.key('keyup','ArrowUp');h.up(2);
  h.key('keydown',' ');h.key('keyup',' ');h.key('keydown','z');h.key('keyup','z');
  assert.deepEqual(h.calls,[['down','up'],['up','up'],['down','a'],['up','a'],['down','x'],['up','x']]);
+});
+
+test('direction taps survive slower scene polling without a premature release',()=>{
+ const h=harness();h.down('right');h.fire(h.document,'pointerup');h.advance(79);
+ assert.deepEqual(h.calls,[['down','right']]);h.advance(1);assert.deepEqual(h.calls,[['down','right'],['up','right']]);
 });
 
 test('a new tap does not silently merge into a previous pending release',()=>{

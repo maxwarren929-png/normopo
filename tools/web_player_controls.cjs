@@ -51,7 +51,7 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
  const paint=()=>{for(const b of buttons)b.dataset.held=String([...held.values()].includes(b.dataset.gameButton))};
  const hold=(id,button)=>{if(!window.__cliNostalgist)return;if(pending.has(id))release(id);if(held.has(id))return;const already=[...held.values()].includes(button);held.set(id,button);started.set(id,performance.now());if(!already)window.__cliNostalgist.pressDown(button);paint()};
  const release=id=>{if(pending.has(id)){clearTimeout(pending.get(id));pending.delete(id)}const button=held.get(id);if(!button)return;held.delete(id);started.delete(id);if(![...held.values()].includes(button))window.__cliNostalgist?.pressUp(button);paint()};
- const pointerUp=id=>{const minimum=['up','down','left','right'].includes(held.get(id))?32:50;const delay=minimum-(performance.now()-(started.get(id)??0));if(delay>0){if(!pending.has(id))pending.set(id,setTimeout(()=>release(id),delay))}else release(id)};
+ const pointerUp=id=>{const minimum=['up','down','left','right'].includes(held.get(id))?80:50;const delay=minimum-(performance.now()-(started.get(id)??0));if(delay>0){if(!pending.has(id))pending.set(id,setTimeout(()=>release(id),delay))}else release(id)};
  const releaseAll=()=>{for(const timer of pending.values())clearTimeout(timer);pending.clear();for(const button of new Set(held.values()))window.__cliNostalgist?.pressUp(button);held.clear();started.clear();paint()};
  window.addEventListener('blur',releaseAll);
  document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAll()});
@@ -94,7 +94,7 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
  const changed=()=>{const next=(coarse.matches||window.innerWidth<=720)?(window.innerWidth>window.innerHeight?'landscape':'portrait'):'desktop';if(next!==mode){releaseAll();mode=next}layout()};
  window.addEventListener('resize',changed);
  coarse.addEventListener('change',changed);
- window.addEventListener('cli-player-ready',()=>{for(const b of buttons)b.disabled=false;document.getElementById('cli-loading')?.remove();layout();focus()});
+ window.addEventListener('cli-player-ready',()=>{for(const b of buttons)b.disabled=false;document.getElementById('cli-loading')?.remove();if(coarse.matches||window.innerWidth<=720)window.__cliNostalgist?.resize({width:512,height:384});layout();focus()});
  layout();
 })();
 </script>`;

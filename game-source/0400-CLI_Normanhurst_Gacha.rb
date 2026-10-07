@@ -165,6 +165,8 @@ module CLINormanhurstGacha
       return unless CLINormanhurstGacha.available?
       pbDrawTextPositions(@sprites["overlay"].bitmap, [
         ["Pulls left: #{CLINormanhurstGacha.remaining}/30", 16, 16, 0,
+         Color.new(248, 248, 248), Color.new(40, 40, 40)],
+        ["#{GachaConfig::BANNERS.keys.index(@banner_id).to_i + 1}/#{GachaConfig::BANNERS.size} #{@banner[:name]}", Graphics.width / 2, 42, 2,
          Color.new(248, 248, 248), Color.new(40, 40, 40)]
       ])
     end
@@ -196,3 +198,19 @@ module CLINormanhurstGacha
   end
 end
 PluginManager.singleton_class.prepend(CLINormanhurstGacha::Installer)
+
+# Also reach storage from older saves that retain an old copy of the room map.
+if defined?(MenuHandlers)
+  MenuHandlers.add(:pause_menu, :normanhurst_pc, {
+    "name" => "PC",
+    "order" => 45,
+    "condition" => proc { next CLINormanhurstGacha.available? && $game_map && $game_map.map_id == 1 },
+    "effect" => proc { |menu|
+      menu.pbHideMenu
+      pbPokeCenterPC
+      menu.pbRefresh
+      menu.pbShowMenu
+      next false
+    }
+  })
+end

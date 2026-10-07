@@ -54,6 +54,16 @@
       ]
     },
     {
+      "id": 9,
+      "name": "Pokemon storage PC",
+      "graphic": "CLI_PC",
+      "position": [6, 2],
+      "trigger": "action",
+      "actions": [
+        { "script": "pbPokeCenterPC" }
+      ]
+    },
+    {
       "id": 7,
       "name": "Normanhurst gym test battles",
       "graphic": "trainer_SCIENTIST",

@@ -78,6 +78,39 @@ def deferred_battle_animation_scripts(data):
     return rm.dumps(archive)
 
 
+def gpu_gacha_text_scripts(data):
+    """Keep rainbow animation without rebuilding pixel-tinted atlases each frame."""
+    archive = rm.loads(data)
+    rows = [row for row in archive if row[1].data == b'CLI_Normanhurst_Gacha']
+    if len(rows) != 1:
+        raise ValueError('Expected one Normanhurst gacha script')
+    source = zlib.decompress(rows[0][2].data).replace(b'\r\n', b'\n')
+    before = b'  module SceneMenu\n'
+    after = before + b'''    # Browser-only: draw cached white glyphs and animate the sprite's GPU tone.
+    def update_rainbow_color
+      return super unless CLINormanhurstGacha.available?
+      Color.new(248, 248, 248)
+    end
+
+    def pbDrawRainbowPrizeText
+      return super unless CLINormanhurstGacha.available?
+      return if @hide_main_prize
+      if @cli_gpu_gacha_banner != @banner_id || !@sprites["prize_name"]
+        super
+        @cli_gpu_gacha_banner = @banner_id
+      end
+      return unless @sprites["prize_name"]
+      r, g, b = hsv_to_rgb((System.uptime * 120) % 360, 100, 100)
+      @sprites["prize_name"].tone = Tone.new(r - 248, g - 248, b - 248)
+    end
+
+'''
+    if source.count(before) != 1:
+        raise ValueError('Expected one gacha SceneMenu wrapper')
+    rows[0][2].data = zlib.compress(source.replace(before, after, 1))
+    return rm.dumps(archive)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', default='normanhurst', type=Path)
@@ -86,6 +119,8 @@ def main():
                         help='Apply the tested web-only bulk-read workaround to the staged scripts')
     parser.add_argument('--defer-battle-animations', action='store_true',
                         help='Defer the staged web battle-animation database load until first use')
+    parser.add_argument('--gpu-gacha-text', action='store_true',
+                        help='Animate staged gacha text with GPU tone instead of new font tints')
     parser.add_argument('--no-path-cache', action='store_true',
                         help='Skip slow recursive asset indexing in the experimental browser runtime')
     args = parser.parse_args()
@@ -96,7 +131,8 @@ def main():
     output.mkdir(parents=True, exist_ok=True)
     suffix = (('-buffered' if args.buffered_animation_load else '')
               + ('-deferred' if args.defer_battle_animations else '')
-              + ('-no-cache' if args.no_path_cache else ''))
+              + ('-no-cache' if args.no_path_cache else '')
+              + ('-gpu-gacha' if args.gpu_gacha_text else ''))
     archive = output / (project.slug + suffix + '.mkxpz')
     with tempfile.TemporaryDirectory(prefix='.web-package-', dir=output) as temp:
         stage = Path(temp) / 'game'
@@ -111,13 +147,15 @@ def main():
         if args.no_path_cache:
             settings['pathCache'] = False
         config.write(stage / 'mkxp.json', settings)
-        if args.buffered_animation_load or args.defer_battle_animations:
+        if args.buffered_animation_load or args.defer_battle_animations or args.gpu_gacha_text:
             scripts = stage / 'Data/Scripts.rxdata'
             data = scripts.read_bytes()
             if args.buffered_animation_load:
                 data = buffered_animation_scripts(data)
             if args.defer_battle_animations:
                 data = deferred_battle_animation_scripts(data)
+            if args.gpu_gacha_text:
+                data = gpu_gacha_text_scripts(data)
             scripts.write_bytes(data)
         with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_STORED, allowZip64=True) as bundle:
             for path in sorted(stage.rglob('*')):
@@ -127,7 +165,7 @@ def main():
         'sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
         'size_bytes': archive.stat().st_size, 'compression': 'store',
         'web_runtime_tested': False,
-        'compatibility_adjustments': (['buffered battle-animation load'] if args.buffered_animation_load else []) + (['deferred battle-animation load'] if args.defer_battle_animations else []) + (['pathCache disabled'] if args.no_path_cache else []),
+        'compatibility_adjustments': (['buffered battle-animation load'] if args.buffered_animation_load else []) + (['deferred battle-animation load'] if args.defer_battle_animations else []) + (['pathCache disabled'] if args.no_path_cache else []) + (['GPU-toned gacha text'] if args.gpu_gacha_text else []),
         'note': 'Local compatibility experiment only. Not permission to redistribute third-party assets.'
     }
     (output / ('package' + suffix + '.json')).write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')

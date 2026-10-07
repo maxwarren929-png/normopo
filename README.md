@@ -4,7 +4,9 @@ Play: https://maxwarren929-png.github.io/normopo/
 
 Experimental browser demo. Click the play symbol if prompted, then wait for the title screen to finish loading. The first visit downloads roughly 232 MiB. Later visits reuse unchanged cached files.
 
-The room now has only the gacha and Gym Leader challenge NPCs. [Cleanup notes](docs/two-npc-room.md).
+The room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2]`. The pause menu also has a PC shortcut. [Cleanup notes](docs/two-npc-room.md).
+
+[Banner navigation and PC update](docs/banner-controls-pc.md): both-direction banner cycling was checked, and the storage box screen opens from the new terminal.
 
 ## Gacha
 
