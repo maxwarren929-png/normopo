@@ -21,9 +21,10 @@ const {createFrontendTransform}=require('./web_player_frontend.cjs');
  c=await chromium.launchPersistentContext(process.env.WEB_BROWSER_PROFILE||path.join(output,'local-player-profile'),{executablePath:process.env.CHROME||'/usr/bin/google-chrome-stable',headless:process.env.WEB_HEADLESS==='1',viewport,hasTouch:mobile,isMobile:mobile,deviceScaleFactor:mobile?2:1,args:['--no-sandbox','--ozone-platform=wayland','--enable-webgl','--ignore-gpu-blocklist','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  const p=c.pages()[0]||await c.newPage();
  p.on('console',m=>{record(m.type()+': '+m.text());if(/Exception|WARNING|Mounted|RGSS version/.test(m.text()))console.log(m.text())});
- p.on('pageerror',e=>{record('pageerror: '+e.message);console.log(e.message)});
+ p.on('pageerror',e=>{record('pageerror: '+e.message+' '+e.stack);console.log(e.message+' '+e.stack)});
  p.on('dialog',async d=>{record('dialog: '+d.message());await d.accept()});
  p.on('request',r=>requests.push(r.url()));
+ p.on('requestfailed',r=>{const message='request failed: '+r.url()+' '+r.failure()?.errorText;record(message);console.log(message)});
  await p.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
  await p.waitForTimeout(1000);
  if(mobile)await p.touchscreen.tap(viewport.width/2,viewport.height/2);
@@ -53,6 +54,11 @@ const {createFrontendTransform}=require('./web_player_frontend.cjs');
   };
   const walkWorld=async(direction,delay=100)=>{if(mobile)await touch(direction,delay);else await p.keyboard.press({up:'ArrowUp',down:'ArrowDown',right:'ArrowRight',left:'ArrowLeft'}[direction],{delay});await p.waitForTimeout(600)};
   const reach=async(x,y)=>{for(let i=0;i<30;i++){const at=await worldPosition();if(at.x===x&&at.y===y)return;await walkWorld(at.y!==y?(at.y>y?'up':'down'):(at.x>x?'left':'right'))}throw new Error('Could not reach room position '+x+','+y)};
+  if(process.argv.includes('--challenges')){
+   await reach(2,6);await walkWorld('down',200);await key('Enter');await p.waitForTimeout(1500);
+   await p.screenshot({path:path.join(output,'local-challenge-roster.png'),timeout:15000});
+   await key('Escape');
+  }
   if(process.argv.includes('--gacha')){
    const step=async(direction,delay)=>{if(mobile)await touch(direction,delay);else await p.keyboard.press({up:'ArrowUp',right:'ArrowRight',left:'ArrowLeft'}[direction],{delay});await p.waitForTimeout(600)};
    // Anchor at the eastern map edge (11,5), step west, then walk north

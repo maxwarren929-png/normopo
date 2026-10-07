@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "6fe74d996e5ef9413d5999cb5d1947d2a0c7b8fa69de0483722848c9f6f81752",
+  "game_archive_sha256": "d1b3594ee9a2770866d6964449c2b4cdb2f63eb44ec400a8dacc81e0d7a9fed4",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -32,5 +32,13 @@
   "browser_checked_archive_sha256": "8589165d4f6e3a9a9bddff184104281388387594769573620034d30875e4f585",
   "final_archive_difference": "Added pause-menu PC shortcut for existing saves; terminal and banner implementations unchanged.",
   "gpu_gacha_text_staged_only": true,
-  "physical_safari_tested": false
+  "physical_safari_tested": false,
+  "martin_level_matching": {
+    "martin_level": 55,
+    "species": "DRAGONITE",
+    "all_seven_levels_native_unit": "passed",
+    "original_and_exception_restoration": "passed",
+    "new_browser_gameplay_verified": false,
+    "full_real_battle_suite_rerun": false
+  }
 }

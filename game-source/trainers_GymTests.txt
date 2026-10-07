@@ -1,0 +1,115 @@
+# Provisional test rosters, not final gym progression. Existing trainer artwork
+# is reused as a placeholder. No reward or badge is granted by the test wrapper.
+[LEADER_Cheren,Max]
+LoseText = Good battle!
+Pokemon = MORPEKO,15
+    Ability = HUNGERSWITCH
+    Moves = THUNDERSHOCK,BITE,QUICKATTACK,PROTECT
+    Nature = JOLLY
+    IV = 20,20,20,20,20,20
+Pokemon = DITTO,15
+    Ability = IMPOSTER
+    Moves = TRANSFORM
+    IV = 20,20,20,20,20,20
+#-------------------------------
+[LEADER_Brock,Ko]
+LoseText = Good battle!
+Pokemon = SHUCKLORD,25
+    Ability = STURDY
+    Item = LEFTOVERS
+    Moves = INFESTATION,TOXIC,REST,PROTECT
+    Nature = IMPISH
+    IV = 20,20,20,20,20,20
+Pokemon = PORYGON2,25
+    Ability = TRACE
+    Item = EVIOLITE
+    Moves = TRIATTACK,ICEBEAM,CHARGEBEAM,RECOVER
+    Nature = MODEST
+    IV = 20,20,20,20,20,20
+#-------------------------------
+[LEADER_Cilan,Warren]
+LoseText = Good battle!
+Pokemon = SYLVEON,35
+    Ability = PIXILATE
+    Moves = HYPERVOICE,CALMMIND,WISH,PROTECT
+    Nature = MODEST
+    IV = 20,20,20,20,20,20
+Pokemon = VAPOREON,35
+    Ability = WATERABSORB
+    Moves = SURF,ICEBEAM,WISH,PROTECT
+    Nature = BOLD
+    IV = 20,20,20,20,20,20
+Pokemon = GARDEVOIR,35
+    Form = 2
+    Ability = FANFAREGAUGE
+    Moves = SALONSOLITARE,MOONBLAST,CALMMIND,PROTECT
+    Nature = MODEST
+    IV = 20,20,20,20,20,20
+#-------------------------------
+[LEADER_Morty,Karna]
+LoseText = Good battle!
+Pokemon = GALLADE,45
+    Form = 2
+    Ability = THOUSANDFACES
+    Moves = OPERATIONSTRIX,CLOSECOMBAT,SWORDSDANCE,PROTECT
+    Nature = JOLLY
+    IV = 20,20,20,20,20,20
+Pokemon = GARDEVOIR,45
+    Form = 3
+    Ability = PROTECTIVEINSTINCT
+    Moves = KNOCKOFF,DRAINPUNCH,HELPINGHAND,PROTECT
+    Nature = ADAMANT
+    IV = 20,20,20,20,20,20
+Pokemon = GENGAR,45
+    Ability = CURSEDBODY
+    Moves = SHADOWBALL,SLUDGEBOMB,WILLOWISP,PROTECT
+    Nature = TIMID
+    IV = 20,20,20,20,20,20
+#-------------------------------
+# Martin is an additional trainer challenge, not an assigned story gym.
+[COOLTRAINER_M,Martin]
+LoseText = Good battle!
+Pokemon = DRAGONITE,55
+    Ability = MULTISCALE
+    Moves = DRAGONCLAW,DRAGONDANCE,EARTHQUAKE,EXTREMESPEED
+    Nature = ADAMANT
+    IV = 20,20,20,20,20,20
+#-------------------------------
+[LEADER_Marlon,Oliver]
+Items = MEGARING
+LoseText = Good battle!
+Pokemon = LEAFEON,65
+    Ability = CHLOROPHYLL
+    Moves = LEAFBLADE,XSCISSOR,SWORDSDANCE,QUICKATTACK
+    Nature = JOLLY
+    IV = 20,20,20,20,20,20
+Pokemon = LAPRAS,65
+    Ability = WATERABSORB
+    Moves = SURF,ICEBEAM,THUNDERBOLT,SING
+    Nature = MODEST
+    IV = 20,20,20,20,20,20
+Pokemon = BLASTOISE,65
+    Item = BLASTOISINITE
+    Ability = TORRENT
+    Moves = WATERPULSE,DARKPULSE,AURASPHERE,ICEBEAM
+    Nature = MODEST
+    IV = 20,20,20,20,20,20
+#-------------------------------
+[LEADER_Drayden,Kaelan]
+LoseText = Good battle!
+Pokemon = NOIVERN,85
+    Ability = INFILTRATOR
+    Moves = BOOMBURST,DRACOMETEOR,FLAMETHROWER,ROOST
+    Nature = TIMID
+    IV = 20,20,20,20,20,20
+Pokemon = GLACEON,85
+    Ability = ICEBODY
+    Moves = ICEBEAM,SHADOWBALL,ICYWIND,PROTECT
+    Nature = MODEST
+    IV = 20,20,20,20,20,20
+Pokemon = ABSOL,85
+    Form = 3
+    Ability = BONDOFLIFE
+    Moves = BLOODDEBTDIRECTIVE,DARKPULSE,NASTYPLOT,PROTECT
+    Nature = TIMID
+    IV = 20,20,20,20,20,20
