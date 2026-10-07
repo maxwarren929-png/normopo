@@ -2,22 +2,31 @@
 
 Play: https://maxwarren929-png.github.io/normopo/
 
-Experimental browser build using mkxp-z and the reference Ruby VM. Chrome is the tested browser. Click the play symbol when prompted, then allow the title screen to finish loading.
+Experimental browser demo. Click the play symbol if prompted, then wait for the title screen to finish loading. The first visit downloads roughly 232 MiB. Later visits reuse unchanged cached files.
 
-Controls:
+## Gacha
 
-- Enter or C: confirm.
+Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.
+
+All prizes are fully evolved, level-50 Pokémon. Choose from Kanto/Johto, Hoenn to Unova and Paldea banners. Legendary pity is ten pulls per banner, and the configured shiny chance is 5%. The screen shows how many pulls remain.
+
+## Controls
+
+- Enter or C: confirm or interact.
 - Escape or X: back.
-- Z: pause menu.
-- Arrow keys: move.
-- Click "Focus game" if keyboard focus moves away from the game.
+- Z: menu. In gacha, this opens the rates sheet.
+- Arrows: move or navigate.
 
-The first visit downloads roughly 232 MiB of game and engine files. The browser caches unchanged files for later visits. The game archive stays internally uncompressed and is split into SHA-256-verified chunks to fit GitHub's file limits. The unused XP sample RTP is omitted. Battle animations load on first use rather than before the title. The game runs from memory-backed files to avoid slow synchronous archive reads.
+Mobile has a directional pad plus Confirm, Back and Menu buttons. Rotate to landscape for a wider view. Touch layouts, navigation, rates and one actual gacha pull were tested in Chrome's phone emulation. Physical Android/iPhone testing is still pending; older phones may be too slow or have insufficient memory.
 
-Title, new game, movement and the pause menu were checked with screenshots. Battles, gacha, audio, save/reload persistence and long sessions still need browser testing. Browser storage is local to this site and browser profile; do not assume a save is portable or backed up.
+Refresh to load an update. If you still see the old unlimited-ticket option, hard-refresh or close and reopen the page. Game identity and archive hashes change with each release, so the old game cache is not reused as the new game.
 
-This is a noncommercial fan game. Pokémon and third-party artwork, music, plugins and runtime components belong to their original owners. No general MIT license is granted for the game or its assets. Read [third-party notices](THIRD-PARTY.md), `licenses/`, and all files in `credits/`. Original Essentials credits remain in the game and are also provided as source in `credits/Original-Essentials-Credits.rb`.
+See [change notes and test details](docs/browser-gacha-mobile.md) and [browser runtime notes](docs/browser-runtime-test.md). Browser save persistence, audio, battles and long sessions are not fully verified. Do not assume browser saves are portable or backed up.
 
-The runtime is mkxp-z `2.4.2/5cd3203`. Corresponding engine and browser build sources are linked in THIRD-PARTY.md. Frontend patch/export source is in `build-tools/`. This repository is a static deployment snapshot, not the complete desktop authoring workspace.
+## Source and ownership
 
-GitHub Actions deploys `main` to Pages. Do not delete or change individual archive chunks independently; export a matching manifest, frontend identity and all chunks together.
+This is a noncommercial fan game. Pokémon, imported artwork/music/plugins and runtime components belong to their original owners. No general MIT license is granted for the game or its assets. Read [third-party notices](THIRD-PARTY.md), `credits/` and `licenses/`.
+
+The runtime is mkxp-z `2.4.2/5cd3203`. Its pinned upstream source is linked in THIRD-PARTY.md. Frontend/export/probe source is in `tools/`; the Normanhurst gacha adaptation is in `game-source/`. This repository is a deployment snapshot, not the complete desktop authoring workspace.
+
+GitHub Actions deploys `main` to Pages. Source, tests and documentation are committed with updates. Archive chunks, the manifest and frontend identity must be published together.

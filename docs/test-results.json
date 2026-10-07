@@ -1,0 +1,26 @@
+{
+  "python_tests": 87,
+  "node_tests": 18,
+  "native_normanhurst_gym_and_plugin_ui": "passed",
+  "native_demo_plugin_ui": "passed",
+  "browser": "Chrome 149, touch emulation and SwiftShader",
+  "viewport_portrait": [
+    390,
+    844
+  ],
+  "viewport_landscape": [
+    844,
+    390
+  ],
+  "browser_checks": [
+    "one-time 30-ticket grant",
+    "rates sheet",
+    "single pull: 30 -> 29",
+    "walking",
+    "pause menu and back",
+    "orientation layout"
+  ],
+  "physical_phone_tested": false,
+  "browser_save_persistence_tested": false,
+  "game_archive_sha256": "5f4caa323f80b4f024553b0379140bd2b1b617ffdf58bb2ca192945cc45c810f"
+}
