@@ -4,6 +4,8 @@ Play: https://maxwarren929-png.github.io/normopo/
 
 Experimental browser demo. Click the play symbol if prompted, then wait for the title screen to finish loading. The first visit downloads roughly 232 MiB. Later visits reuse unchanged cached files.
 
+The room now has only the gacha and Gym Leader challenge NPCs. [Cleanup notes](docs/two-npc-room.md).
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.

@@ -1,5 +1,5 @@
 {
-  "python_tests": 87,
+  "python_tests": 89,
   "node_tests": 18,
   "native_normanhurst_gym_and_plugin_ui": "passed",
   "native_demo_plugin_ui": "passed",
@@ -22,5 +22,6 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "5f4caa323f80b4f024553b0379140bd2b1b617ffdf58bb2ca192945cc45c810f"
+  "game_archive_sha256": "f8af5d222047a9d2fbcbaa270f62a7764da366b1e67f6545a40baaa9f31061a1",
+  "room_visible_npcs": 2
 }

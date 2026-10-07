@@ -49,8 +49,8 @@ const {createFrontendTransform}=require('./web_player_frontend.cjs');
   await p.screenshot({path:path.join(output,'local-player-map.png'),timeout:15000});
   if(process.argv.includes('--gacha')){
    const step=async(direction,delay)=>{if(mobile)await touch(direction,delay);else await p.keyboard.press({up:'ArrowUp',right:'ArrowRight',left:'ArrowLeft'}[direction],{delay});await p.waitForTimeout(600)};
-   // Guide at (5,4) blocks walking north from the spawn. Anchor at the
-   // eastern map edge (11,5), step west, then walk up to the scientist (10,2).
+   // Anchor at the eastern map edge (11,5), step west, then walk north
+   // to the gacha scientist (10,2). Stable event positions survive room cleanup.
    await step('right',1800);
    await step('left',100);
    await step('up',1800);

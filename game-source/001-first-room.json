@@ -1,17 +1,11 @@
 {
   "id": 1,
   "name": "First room",
-  "size": [
-    12,
-    10
-  ],
+  "size": [12, 10],
   "tileset": 3,
   "layers": [
     {
-      "legend": {
-        ".": 760,
-        "p": 2391
-      },
+      "legend": { ".": 760, "p": 2391 },
       "rows": [
         "............",
         "............",
@@ -25,100 +19,27 @@
         "............"
       ]
     },
-    {
-      "fill": 0
-    },
-    {
-      "fill": 0
-    }
+    { "fill": 0 },
+    { "fill": 0 }
   ],
   "events": [
     {
-      "id": 1,
-      "name": "Guide",
-      "graphic": "trainer_PROFESSOR",
-      "position": [
-        5,
-        4
-      ],
-      "trigger": "action",
-      "actions": [
-        {
-          "comment": "Event Indicator\nquestion"
-        },
-        {
-          "say": [
-            "This room was generated from JSON.",
-            "No RPG Maker editor was used."
-          ]
-        }
-      ]
-    },
-    {
       "id": 2,
       "name": "Initialize player",
-      "position": [
-        0,
-        0
-      ],
+      "position": [0, 0],
       "trigger": "autorun",
       "actions": [
-        {
-          "script": "if $player.character_ID < 1\n  pbChangePlayer(1)\n  pbTrainerName(\"Player\")\nend\n$game_player.refresh_charset\n$game_player.opacity = 255\nputs \"CLI player initialized: #{$player.character_ID}, #{$game_player.character_name}, #{$game_player.x}, #{$game_player.y}\" if $DEBUG\nCLIDemo.setup_world"
-        },
-        {
-          "erase": true
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Plugin tester",
-      "graphic": "trainer_SCIENTIST",
-      "position": [
-        8,
-        4
-      ],
-      "trigger": "action",
-      "actions": [
-        {
-          "comment": "Event Indicator\nquestsimpleanimated"
-        },
-        {
-          "script": "CLIDemo.plugin_tester"
-        }
+        { "script": "if $player.character_ID < 1\n  pbChangePlayer(1)\n  pbTrainerName(\"Player\")\nend\n$game_player.refresh_charset\n$game_player.opacity = 255\nputs \"CLI player initialized: #{$player.character_ID}, #{$game_player.character_name}, #{$game_player.x}, #{$game_player.y}\" if $DEBUG\nCLIDemo.setup_world" },
+        { "erase": true }
       ]
     },
     {
       "id": 4,
       "name": "Follower anchor",
-      "position": [
-        0,
-        1
-      ],
+      "position": [0, 1],
       "trigger": "action",
       "actions": [
-        {
-          "comment": "Invisible seed event for FollowingPkmn.start_following(4)."
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "News reader",
-      "graphic": "trainer_PROFESSOR",
-      "position": [
-        2,
-        4
-      ],
-      "trigger": "action",
-      "actions": [
-        {
-          "comment": "Event Indicator\nquestsimpletext\nLocal news"
-        },
-        {
-          "script": "CLIDemo.news_tester"
-        }
+        { "comment": "Invisible seed event for FollowingPkmn.start_following(4)." }
       ]
     },
     {
@@ -141,24 +62,6 @@
       "actions": [
         { "comment": "Event Indicator\nquestsimpleanimated" },
         { "script": "CLINormanhurstGymTests.menu" }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Market trader",
-      "graphic": "trainer_SCIENTIST",
-      "position": [
-        9,
-        7
-      ],
-      "trigger": "action",
-      "actions": [
-        {
-          "comment": "Event Indicator\nquestsimpletext\nFree Market"
-        },
-        {
-          "script": "pbFreeMarket"
-        }
       ]
     }
   ]
