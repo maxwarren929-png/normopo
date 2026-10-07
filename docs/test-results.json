@@ -1,6 +1,6 @@
 {
   "python_tests": 89,
-  "node_tests": 18,
+  "node_tests": 24,
   "native_normanhurst_gym_and_plugin_ui": "passed",
   "native_demo_plugin_ui": "passed",
   "browser": "Chrome 149, touch emulation and SwiftShader",
@@ -23,5 +23,11 @@
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
   "game_archive_sha256": "f8af5d222047a9d2fbcbaa270f62a7764da366b1e67f6545a40baaa9f31061a1",
-  "room_visible_npcs": 2
+  "room_visible_npcs": 2,
+  "safari_frontend_fix": {
+    "export_tests": 9,
+    "physical_safari_tested": false,
+    "new_browser_probe_run": false,
+    "archive_unchanged": true
+  }
 }

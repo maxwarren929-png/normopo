@@ -29,13 +29,13 @@ function harness({width=390,height=844,coarse=true,prepared=true}={}) {
 test('phone layout reserves touch space, native backing buffer, and disabled-until-prepared controls',()=>{
  const h=harness({prepared:false});
  assert.equal(h.document.body.dataset.cliLayout,'portrait');
- assert.equal(h.canvas.style.values.width,'366px');
- assert.equal(h.canvas.style.values.height,'274px');
+ assert.equal(h.canvas.style.values['--cli-width'],'366px');
+ assert.equal(h.canvas.style.values['--cli-height'],'274px');
  assert.equal(h.buttons.every(b=>b.disabled),true);
  h.down('a');assert.deepEqual(h.calls,[]);
  h.window.__cliNostalgist=h.engine;h.fire(h.window,'cli-player-ready');
  assert.equal(h.buttons.every(b=>!b.disabled),true);
- assert.deepEqual(h.sizes.at(-1),{width:512,height:384});
+ assert.deepEqual(h.sizes,[]);
 });
 
 test('paired pointer inputs and multi-touch release independently',()=>{
@@ -71,9 +71,9 @@ test('orientation change releases held input and landscape fits between control 
  const h=harness();h.down('left');h.window.innerWidth=844;h.window.innerHeight=390;h.fire(h.window,'resize');
  assert.deepEqual(h.calls,[['down','left'],['up','left']]);
  assert.equal(h.document.body.dataset.cliLayout,'landscape');
- assert.equal(h.canvas.style.values.width,'445px');
- assert.equal(h.canvas.style.values.height,'334px');
- assert.equal(h.canvas.style.values.top,'36px');
+ assert.equal(h.canvas.style.values['--cli-width'],'445px');
+ assert.equal(h.canvas.style.values['--cli-height'],'334px');
+ assert.equal(h.canvas.style.values['--cli-top'],'36px');
 });
 
 test('desktop layout remains untouched and leaving a narrow layout restores styles',()=>{
@@ -88,11 +88,27 @@ test('desktop layout remains untouched and leaving a narrow layout restores styl
  assert.deepEqual(h.sizes.at(-1),{width:1100,height:850});
 });
 
-test('brief taps last at least 100ms and normal capture loss does not cut them short',()=>{
+test('brief taps last at least 50ms and normal capture loss does not cut them short',()=>{
  const h=harness();h.down('a');h.fire(h.document,'pointerup');
  h.fire(h.button('a'),'lostpointercapture');
- h.advance(99);assert.deepEqual(h.calls,[['down','a']]);
+ h.advance(49);assert.deepEqual(h.calls,[['down','a']]);
  h.advance(1);assert.deepEqual(h.calls,[['down','a'],['up','a']]);
+});
+
+test('Safari height-only viewport changes keep held input and fixed portrait placement',()=>{
+ const h=harness();h.down('up');h.window.innerHeight=744;h.fire(h.window,'resize');
+ assert.deepEqual(h.calls,[['down','up']]);assert.equal(h.canvas.style.values['--cli-top'],'56px');assert.deepEqual(h.sizes,[]);h.up();
+});
+
+test('common keyboard bindings share the same reference count as touch',()=>{
+ const h=harness();h.key('keydown','ArrowUp');h.down('up',2);h.key('keyup','ArrowUp');h.up(2);
+ h.key('keydown',' ');h.key('keyup',' ');h.key('keydown','z');h.key('keyup','z');
+ assert.deepEqual(h.calls,[['down','up'],['up','up'],['down','a'],['up','a'],['down','x'],['up','x']]);
+});
+
+test('a new tap does not silently merge into a previous pending release',()=>{
+ const h=harness();h.down('a');h.fire(h.document,'pointerup');h.advance(40);h.down('a');
+ assert.deepEqual(h.calls,[['down','a'],['up','a'],['down','a']]);h.up();
 });
 
 test('pending tap releases are cancelled immediately on blur or pointer cancellation',()=>{

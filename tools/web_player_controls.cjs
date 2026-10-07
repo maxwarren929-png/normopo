@@ -7,7 +7,7 @@ const SUPPORT = `<style>
 #cli-controls:hover,#cli-controls:focus-within{opacity:1}
 #cli-loading{position:fixed;z-index:999;bottom:8%;width:100%;text-align:center;color:white;font:14px sans-serif;pointer-events:none}
 #gamepad-target{display:none!important}
-#cli-touch{display:none;position:fixed;inset:0;z-index:1000;pointer-events:none}
+#cli-touch{display:none;position:absolute;inset:0;z-index:1000;pointer-events:none}
 #cli-touch button{pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;min-width:44px;min-height:44px;border:1px solid #a6adc2;border-radius:12px;color:#fff;background:#202839e8;font:600 15px system-ui,sans-serif;padding:8px}
 #cli-touch button:disabled{opacity:.4}
 #cli-touch button[data-held=true]{background:#4368a2;border-color:#d3e5ff}
@@ -18,7 +18,8 @@ const SUPPORT = `<style>
 #cli-dpad [data-game-button=down]{grid-column:2;grid-row:3}
 #cli-actions{position:absolute;display:grid;grid-template-columns:repeat(2,64px);gap:8px;right:max(12px,env(safe-area-inset-right));bottom:max(38px,env(safe-area-inset-bottom))}
 #cli-actions [data-game-button=a]{grid-column:1/3;min-height:60px;background:#254944e8}
-body[data-cli-layout]{margin:0;overflow:hidden;overscroll-behavior:none;background:#000}
+body[data-cli-layout]{position:fixed;inset:0;bottom:auto;width:100%;height:100%;height:100svh;margin:0;overflow:hidden;overscroll-behavior:none;touch-action:none;background:#000}
+body[data-cli-layout] #nostalgist-canvas,body[data-cli-layout] #canvas{position:fixed!important;left:var(--cli-left)!important;top:var(--cli-top)!important;width:var(--cli-width)!important;height:var(--cli-height)!important;object-fit:contain!important;image-rendering:pixelated!important}
 body[data-cli-layout] #cli-touch{display:block}
 body[data-cli-layout] #cli-controls{opacity:1;top:max(6px,env(safe-area-inset-top))}
 body[data-cli-layout] #cli-keyboard-help{display:none}
@@ -46,11 +47,11 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
  const held=new Map(),started=new Map(),pending=new Map(),savedStyles=new WeakMap();
  const buttons=[...document.querySelectorAll('#cli-touch [data-game-button]')];
  const canvas=()=>window.__cliNostalgist?.getCanvas()||document.getElementById('nostalgist-canvas')||document.getElementById('canvas');
- const focus=()=>{const c=canvas();if(c){c.tabIndex=0;c.focus({preventScroll:true})}};
+ const focus=()=>{const c=canvas();if(c&&document.activeElement!==c){c.tabIndex=0;c.focus({preventScroll:true})}};
  const paint=()=>{for(const b of buttons)b.dataset.held=String([...held.values()].includes(b.dataset.gameButton))};
- const hold=(id,button)=>{if(!window.__cliNostalgist)return;if(pending.has(id)){clearTimeout(pending.get(id));pending.delete(id)}if(held.has(id))return;const already=[...held.values()].includes(button);held.set(id,button);started.set(id,performance.now());if(!already)window.__cliNostalgist.pressDown(button);paint()};
+ const hold=(id,button)=>{if(!window.__cliNostalgist)return;if(pending.has(id))release(id);if(held.has(id))return;const already=[...held.values()].includes(button);held.set(id,button);started.set(id,performance.now());if(!already)window.__cliNostalgist.pressDown(button);paint()};
  const release=id=>{if(pending.has(id)){clearTimeout(pending.get(id));pending.delete(id)}const button=held.get(id);if(!button)return;held.delete(id);started.delete(id);if(![...held.values()].includes(button))window.__cliNostalgist?.pressUp(button);paint()};
- const pointerUp=id=>{const minimum=['up','down','left','right'].includes(held.get(id))?40:100;const delay=minimum-(performance.now()-(started.get(id)??0));if(delay>0){if(!pending.has(id))pending.set(id,setTimeout(()=>release(id),delay))}else release(id)};
+ const pointerUp=id=>{const minimum=['up','down','left','right'].includes(held.get(id))?32:50;const delay=minimum-(performance.now()-(started.get(id)??0));if(delay>0){if(!pending.has(id))pending.set(id,setTimeout(()=>release(id),delay))}else release(id)};
  const releaseAll=()=>{for(const timer of pending.values())clearTimeout(timer);pending.clear();for(const button of new Set(held.values()))window.__cliNostalgist?.pressUp(button);held.clear();started.clear();paint()};
  window.addEventListener('blur',releaseAll);
  document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseAll()});
@@ -67,7 +68,7 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
   if(type==='keyup'&&held.has(id)){release(id);e.preventDefault();e.stopImmediatePropagation();return}
   if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)||e.target.isContentEditable)return;
   if(['Enter','ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();
-  const alias=e.key==='Enter'?'a':e.key==='Escape'?'b':null;
+  const alias=({enter:'a',' ':'a',escape:'b',c:'a',x:'b',z:'x',arrowup:'up',arrowdown:'down',arrowleft:'left',arrowright:'right'})[e.key.toLowerCase()];
   if(type==='keydown'&&alias&&window.__cliNostalgist){e.preventDefault();e.stopImmediatePropagation();hold(id,alias)}
  },true);
  const coarse=window.matchMedia('(any-pointer: coarse)');
@@ -79,17 +80,18 @@ body[data-cli-layout=landscape] #cli-actions{top:calc(50% - 58px);bottom:auto}
   document.body.dataset.cliLayout=landscape?'landscape':'portrait';
   if(!c)return;
   if(!savedStyles.has(c))savedStyles.set(c,c.style.cssText);
+  const height=document.body.getBoundingClientRect?.().height||window.innerHeight;
   const availableWidth=Math.max(64,window.innerWidth-(landscape?340:24));
-  const availableHeight=Math.max(48,window.innerHeight-(landscape?56:244));
+  const availableHeight=Math.max(48,height-(landscape?56:244));
   let scale=Math.min(availableWidth/512,availableHeight/384);
   if(scale>=1)scale=Math.floor(scale);
   const w=Math.floor(512*scale),h=Math.floor(384*scale);
-  const top=landscape?Math.max(36,(window.innerHeight-h)/2):48+Math.max(0,(window.innerHeight-244-h)/2);
-  for(const [name,value] of Object.entries({position:'fixed',left:Math.floor((window.innerWidth-w)/2)+'px',top:Math.floor(top)+'px',width:w+'px',height:h+'px','object-fit':'contain','image-rendering':'pixelated'}))c.style.setProperty(name,value,'important');
-  // Request a native-size backing buffer; the upstream driver may resize it.
-  window.__cliNostalgist?.resize({width:512,height:384});
+  const top=landscape?Math.max(36,(height-h)/2):56;
+  // CSS rules, not inline width/height: Emscripten removes those on resize.
+  for(const [name,value] of Object.entries({'--cli-left':Math.floor((window.innerWidth-w)/2)+'px','--cli-top':Math.floor(top)+'px','--cli-width':w+'px','--cli-height':h+'px'}))c.style.setProperty(name,value);
  };
- const changed=()=>{releaseAll();layout()};
+ let mode=(coarse.matches||window.innerWidth<=720)?(window.innerWidth>window.innerHeight?'landscape':'portrait'):'desktop';
+ const changed=()=>{const next=(coarse.matches||window.innerWidth<=720)?(window.innerWidth>window.innerHeight?'landscape':'portrait'):'desktop';if(next!==mode){releaseAll();mode=next}layout()};
  window.addEventListener('resize',changed);
  coarse.addEventListener('change',changed);
  window.addEventListener('cli-player-ready',()=>{for(const b of buttons)b.disabled=false;document.getElementById('cli-loading')?.remove();layout();focus()});

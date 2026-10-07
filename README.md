@@ -12,9 +12,11 @@ Talk to the scientist at `[10,2]`, near the upper-right corner of the test room.
 
 All prizes are fully evolved, level-50 Pokémon. Choose from Kanto/Johto, Hoenn to Unova and Paldea banners. Legendary pity is ten pulls per banner, and the configured shiny chance is 5%. The screen shows how many pulls remain.
 
+[Safari layout and input fixes](docs/safari-controls-fix.md): stable page layout, bounded startup reloads and disabled speed shortcuts. Close the old tab and reopen to update. Physical Safari verification is pending.
+
 ## Controls
 
-- Enter or C: confirm or interact.
+- Enter, Space or C: confirm or interact.
 - Escape or X: back.
 - Z: menu. In gacha, this opens the rates sheet.
 - Arrows: move or navigate.

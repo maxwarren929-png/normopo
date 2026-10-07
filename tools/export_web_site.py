@@ -119,18 +119,18 @@ def archive_credits(archive: Path) -> dict[str, bytes]:
     return credits
 
 
-def patch_frontend(source: bytes, identity: dict) -> tuple[bytes, str]:
+def patch_frontend(source: bytes, identity: dict) -> tuple[bytes, str, str]:
     script = """const fs=require('node:fs');
-const {patchPlayerJS,SUPPORT}=require(process.argv[1]);
+const {patchPlayerJS,SUPPORT,BOOTSTRAP}=require(process.argv[1]);
 const input=JSON.parse(fs.readFileSync(0,'utf8'));
-process.stdout.write(JSON.stringify({js:patchPlayerJS(input.source,input.identity),support:SUPPORT}));
+process.stdout.write(JSON.stringify({js:patchPlayerJS(input.source,input.identity),support:SUPPORT,bootstrap:BOOTSTRAP}));
 """
     result = subprocess.run(["node", "-e", script, str(FRONTEND.resolve())],
                             input=json.dumps({"source": source.decode("utf-8"),
                                               "identity": identity}),
                             text=True, capture_output=True, check=True)
     patched = json.loads(result.stdout)
-    return patched["js"].encode("utf-8"), patched["support"]
+    return patched["js"].encode("utf-8"), patched["support"], patched["bootstrap"]
 
 
 def fetch_shim(identity: dict) -> str:
@@ -269,10 +269,10 @@ def export_site(archive: Path, output: Path, cache: Path = DEFAULT_CACHE,
     credits = archive_credits(archive)
     output.mkdir(parents=True, exist_ok=True)
     manifest = split_archive(archive, output, chunk_size)
-    js, support = patch_frontend(assets[MAIN_JS][0], manifest)
+    js, support, bootstrap = patch_frontend(assets[MAIN_JS][0], manifest)
     new_module = "assets/normanhurst-" + hashlib.sha256(js).hexdigest() + ".js"
     html = assets["index.html"][0].decode("utf-8")
-    for before, after in (("<title>mkxp-z-nostalgist</title>", "<title>Pokémon Normanhurst</title>"),
+    for before, after in (("<title>mkxp-z-nostalgist</title>", bootstrap + "<title>Pokémon Normanhurst</title>"),
                           ('<script type="module" crossorigin src="./' + MAIN_JS + '"></script>',
                            fetch_shim(manifest) + '<script type="module" crossorigin src="./' + new_module + '"></script>'),
                           ("</body>", support + "</body>")):

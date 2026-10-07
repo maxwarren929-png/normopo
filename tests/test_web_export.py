@@ -22,6 +22,10 @@ Dn=`5ef70c0075ace21ee105a48f616cb067a66a4a0b46ce8e9051869794ccd5a579`;
 kn=`KNight-Blade: Howling of Kerberos`;
 try{return await navigator.storage.getDirectory()}
 var Q=document.getElementById(`gamepad-target`);
+input_toggle_fast_forward:`space`,input_hold_fast_forward:`l`,input_toggle_slowmotion:`g`,input_hold_slowmotion:`e`;
+e.persisted&&location.reload();
+if(window.sessionStorage.getItem(Un)!==`ready`)throw window.sessionStorage.setItem(Un,`ready`),location.reload(),`Reloading once to make coi-serviceworker.js less flaky`;
+location.reload(),`Reloading to enable cross-origin isolation`;
 '''
 HTML_FIXTURE = '''<!doctype html><html><head>
 <title>mkxp-z-nostalgist</title>
