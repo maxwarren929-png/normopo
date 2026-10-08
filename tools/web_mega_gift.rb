@@ -1,24 +1,39 @@
 # Injected into the staged Normanhurst website archive only, never desktop scripts.
 class PokemonGlobalMetadata
   attr_accessor :cli_web_mega_gift_received
+  attr_accessor :cli_web_mega_gift_items
 end
 
 module CLIWebMegaGift
+  def self.item_ids
+    @item_ids ||= begin
+      ids = []
+      GameData::Item.each do |item|
+        ids << item.id if item.is_mega_stone? || item.id == :MEGARING
+      end
+      ids.freeze
+    end
+  end
+
   def self.grant
     return unless $player && $bag && $PokemonGlobal
     return unless CLINormanhurstGacha.available?
-    return if $PokemonGlobal.cli_web_mega_gift_received
     return if $game_temp && $game_temp.in_battle
+    # Legacy website gifts predate Honchkrowite. Preserve those claims even if
+    # their stones are now held/sold, but deliver the newly registered stone.
+    if !$PokemonGlobal.cli_web_mega_gift_items
+      $PokemonGlobal.cli_web_mega_gift_items = $PokemonGlobal.cli_web_mega_gift_received ? item_ids.reject { |id| id == :HONCHKROWITE } : []
+    end
+    claimed = $PokemonGlobal.cli_web_mega_gift_items
+    missing = item_ids - claimed
+    return if missing.empty?
     now = System.uptime
     return if @next_attempt && now < @next_attempt
     @next_attempt = now + 2
-    complete = true
-    GameData::Item.each do |item|
-      next unless item.is_mega_stone? || item.id == :MEGARING
-      next if $bag.has?(item.id)
-      complete = false unless $bag.add(item.id)
+    missing.each do |id|
+      claimed << id if $bag.has?(id) || $bag.add(id)
     end
-    $PokemonGlobal.cli_web_mega_gift_received = true if complete
+    $PokemonGlobal.cli_web_mega_gift_received = (item_ids - claimed).empty?
   end
 end
 

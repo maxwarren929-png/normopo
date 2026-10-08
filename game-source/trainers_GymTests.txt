@@ -85,6 +85,11 @@ Pokemon = FLAPPLE,55
     Moves = GRAVAPPLE,DRAGONCLAW,DRAGONDANCE,ACROBATICS
     Nature = ADAMANT
     IV = 20,20,20,20,20,20
+Pokemon = CERULEDGE,55
+    Ability = FLASHFIRE
+    Moves = BITTERBLADE,SHADOWSNEAK,SWORDSDANCE,CLOSECOMBAT
+    Nature = ADAMANT
+    IV = 20,20,20,20,20,20
 #-------------------------------
 # Martin is an additional trainer challenge, not an assigned story gym.
 [COOLTRAINER_M,Martin]

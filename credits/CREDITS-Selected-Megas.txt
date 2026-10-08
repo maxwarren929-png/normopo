@@ -1,0 +1,32 @@
+Selected Mega artwork, Infinite Fusion community fan art.
+TYRANITAR form 1: IF 248.248, artist dabouiw.
+HONCHKROW form 1: IF 256.256a, artist vultures.
+Third-party art is not covered by the CLI MIT license. Keep artist credits.
+Resolved with /home/ko/if-fuser/server.py resolve_sprite, local files/cache only.
+Native full 96x96 RGBA source cells are retained without HGSS export or palette quantization.
+Battle art uses the full visible front, cropped only to transparent bounds,
+scaled exactly 2x nearest-neighbor and bottom-centered in a 192x192 frame.
+Back sprites mirror fronts as placeholders, not genuine rear views.
+Shiny battle art and icons match normal art as placeholders.
+Two-frame 128x64 menu icons derive from the native fronts.
+
+Tyranitar form 1 stats, abilities, stone and existing metrics are untouched.
+Existing Tyranitar offsets are FrontSprite 11,10 and BackSprite 0,48.
+Those offsets predate this art; battle placement has not been checked in-game.
+Honchkrow form 1 was unused in all shared form PBS files, including Gen 9.
+Honchkrow is Dark/Flying, 605 BST, Moxie, Honchkrowite, UnmegaForm 0.
+No custom moves, abilities, Mega animation hooks or Trainer PBS changes.
+Uses the existing generic DBK Mega presentation.
+Form and item PBS both live in Demo, with matching Normanhurst symlinks.
+Import tool performs no compilation, tests, network access or deployment.
+Honchkrowite reuses the existing Tyranitarite item icon as a placeholder.
+
+Permanent original Tyranitar form 1 assets, first-import backup, never overwritten:
+Graphics/Pokemon/Selected Megas Sources/original-mega-tyranitar/Front/TYRANITAR_1.png SHA256 39fac618a9fb365f8ac66aeaee9759c1aad10ea1e825a5015018e5f7fdeaf951
+Graphics/Pokemon/Selected Megas Sources/original-mega-tyranitar/Front shiny/TYRANITAR_1.png SHA256 dc5b969679342b4fa8fe8d5f15050dbfe8af1d1a9d04e567fff963bc1dcdb15a
+Graphics/Pokemon/Selected Megas Sources/original-mega-tyranitar/Back/TYRANITAR_1.png SHA256 1aa756ad1c267746421ed34e582331ae15951009f5c37bf39246dccb94ed550b
+Graphics/Pokemon/Selected Megas Sources/original-mega-tyranitar/Back shiny/TYRANITAR_1.png SHA256 53b3483608663fbcdd0423c439dc6077b5ded3827dd4606e94305ec553a95c68
+Graphics/Pokemon/Selected Megas Sources/original-mega-tyranitar/Icons/TYRANITAR_1.png SHA256 152d0d87b0a0540436fcd380281e77caede55b8d7443257b9fd77f0567862c8f
+Graphics/Pokemon/Selected Megas Sources/original-mega-tyranitar/Icons shiny/TYRANITAR_1.png SHA256 4b1e1aea984716765c957a87193ba2bb8941f65c2856681ed2b22f701d619bab
+Native 248.248: custom:248/248.png@248; credited artist dabouiw.
+Native 256.256a: custom:256/256a.png@256; credited artist vultures.

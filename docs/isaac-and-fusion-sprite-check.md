@@ -1,5 +1,7 @@
 # Isaac and the Infinite Fusion sprite check
 
+Subsequent update: Isaac now also has Ceruledge, and both reviewed Mega sprites are implemented. See [selected-megas-and-ceruledge.md](selected-megas-and-ceruledge.md). The review below records the earlier selection check.
+
 Isaac is Gym 5 in the existing Normanhurst plan. His approved team is Quagsire, Breloom and Flapple. This update adds him to the challenge menu, with all three at provisional level 55 in a single battle. Standard Clay trainer artwork is a placeholder. Gym 7 remains unassigned.
 
 Use my party temporarily matches your team to level 55, recalculates stats and heals the copies. Your original Pokémon and levels are restored afterward. The existing no-experience, no-money, no-Bag and no-badge rules remain. No new NPC or story map is added.

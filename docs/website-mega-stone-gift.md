@@ -2,7 +2,7 @@
 
 The GitHub website build gives each save one of every registered item with the MegaStone flag, plus a Mega Ring. This includes Venusaurite X and the ordinary Mega Stones. Red Orb and Blue Orb are not Mega Stones and are not included.
 
-The gift arrives silently in the Bag when the overworld first updates, after either New Game or Continue. Older saves qualify. The saved completion flag prevents repeat gifts; already-present items are not duplicated. If the Bag is full, missing items retry every two seconds and the gift is not marked complete prematurely. Save manually to retain the gift with the rest of your progress.
+The gift arrives silently in the Bag when the overworld first updates, after either New Game or Continue. Older saves qualify. A saved list records each delivered item, so future added stones can be given without repeating older gifts. Already-present items are not duplicated. Saves from the original boolean-only gift receive Honchkrowite without repeating their earlier stones. If the Bag is full, missing items retry every two seconds and the gift is not marked complete prematurely. Save manually to retain the gift with the rest of your progress.
 
 Give a compatible Pokémon its stone from the Bag, then choose Use my party at the challenge scientist. In the staged website build, the temporary challenge Bag keeps your Mega Ring so player Mega Evolution is eligible. The no-Bag rule still blocks consumable use. The original Bag and team are restored afterward, and the existing DBK Mega presentation is unchanged.
 

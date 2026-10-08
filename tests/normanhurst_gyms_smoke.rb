@@ -8,7 +8,7 @@ module CLINormanhurstGymsSmoke
     ["Oliver", 6, :LEADER_Marlon, 65, :single, [[:LEAFEON, 0], [:LAPRAS, 0], [:BLASTOISE, 0]]],
     ["Kaelan", 8, :LEADER_Drayden,85, :single, [[:NOIVERN, 0], [:GLACEON, 0], [:ABSOL, 3]]],
     ["Martin", nil, :COOLTRAINER_M,55, :single, [[:DRAGONITE, 0]]],
-    ["Isaac", 5, :LEADER_Clay,55, :single, [[:QUAGSIRE, 0], [:BRELOOM, 0], [:FLAPPLE, 0]]]
+    ["Isaac", 5, :LEADER_Clay,55, :single, [[:QUAGSIRE, 0], [:BRELOOM, 0], [:FLAPPLE, 0], [:CERULEDGE, 0]]]
   ].freeze
 
   def self.check(condition, message)

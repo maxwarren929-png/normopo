@@ -9,7 +9,7 @@ and Martin's trainer challenge are implemented in Normanhurst. These are not sto
 | 2 | Ko | Fermentris, Porygon2 | Not specified |
 | 3 | Warren | Sylveon, Vaporeon, new Gardevoir variant | Not specified |
 | 4 | Karna | Gengar, Gallade variant, Gardevoir variant | Double battle |
-| 5 | Isaac | Quagsire, Breloom, Flapple | Single, provisional |
+| 5 | Isaac | Quagsire, Breloom, Flapple, Ceruledge | Single, provisional |
 | 6 | Oliver | Leafeon, Lapras, Mega Blastoise | Not specified |
 | 7 | TBD | TBD | Not specified |
 | 8 | Kaelan | Noivern, Glaceon, new regional Absol | Not specified |
@@ -81,6 +81,6 @@ files were edited, and the Normanhurst roster/test event remain edition-only.
 
 Remaining aces, personalities, badges, gym locations and puzzles are undecided.
 Gym 7's leader and team remain TBD. Isaac's approved team is Quagsire, Breloom
-and Flapple. Level 55, lead order, moves and Clay artwork are provisional. No shared type restriction
+Flapple and Ceruledge. Level 55, lead order, moves and Clay artwork are provisional. No shared type restriction
 has been specified. Do not apply this roster to Hornsby or regenerate story maps
 without approval.

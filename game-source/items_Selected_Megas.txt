@@ -1,0 +1,7 @@
+[HONCHKROWITE]
+Name = Honchkrowite
+NamePlural = Honchkrowites
+Pocket = 1
+Price = 0
+Flags = MegaStone
+Description = A Mega Stone that enables Honchkrow to become Mega Honchkrow.

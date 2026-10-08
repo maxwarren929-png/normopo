@@ -18,7 +18,7 @@ module GameData
     end
     def self.each
       [Entry.new(:CHARIZARDITEX, true), Entry.new(:VENUSAURITEX, true),
-       Entry.new(:MEGARING, false), Entry.new(:REDORB, false), Entry.new(:POKEBALL, false)].each { |item| yield item }
+       Entry.new(:HONCHKROWITE, true), Entry.new(:MEGARING, false), Entry.new(:REDORB, false), Entry.new(:POKEBALL, false)].each { |item| yield item }
     end
   end
 end
@@ -38,7 +38,7 @@ $player = true
 $game_temp = Struct.new(:in_battle).new(false)
 $PokemonGlobal, $bag = PokemonGlobalMetadata.new, GiftBag.new
 CLIWebMegaGift.grant
-expected = { :CHARIZARDITEX => 1, :VENUSAURITEX => 1, :MEGARING => 1 }
+expected = { :CHARIZARDITEX => 1, :VENUSAURITEX => 1, :HONCHKROWITE => 1, :MEGARING => 1 }
 raise 'gift incomplete or wrong items' unless $bag.items == expected && $PokemonGlobal.cli_web_mega_gift_received
 System.clock = 3
 CLIWebMegaGift.grant
@@ -58,6 +58,11 @@ raise 'gift went to temporary battle bag' unless $bag.items.empty? && !$PokemonG
 $game_temp.in_battle = false
 CLIWebMegaGift.grant
 raise 'post-battle grant missed' unless $bag.items == expected
+$PokemonGlobal, $bag = PokemonGlobalMetadata.new, GiftBag.new
+$PokemonGlobal.cli_web_mega_gift_received = true
+System.clock = 12
+CLIWebMegaGift.grant
+raise 'legacy save did not get only the new stone' unless $bag.items == { :HONCHKROWITE => 1 } && $PokemonGlobal.cli_web_mega_gift_received
 File.write('web-gift-result.txt', 'PASSED')
 puts 'WEB_MEGA_GIFT_UNIT_PASSED'
 exit

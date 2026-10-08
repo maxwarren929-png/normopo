@@ -1,0 +1,9 @@
+# Tyranitar form 1 mechanics remain in pokemon_forms.txt unchanged.
+[HONCHKROW,1]
+FormName = Mega Honchkrow
+MegaStone = HONCHKROWITE
+UnmegaForm = 0
+Types = DARK,FLYING
+BaseStats = 100,155,72,101,105,72
+Abilities = MOXIE
+HiddenAbilities = MOXIE

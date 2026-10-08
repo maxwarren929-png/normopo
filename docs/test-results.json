@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "d8b784bc94f47c8e4e3692cf38777a201478618e6496d3a6d40f80b004169f6e",
+  "game_archive_sha256": "d51e436f88fd18f31c876f519490ae696f188c83e43baa7b0ca4dd8875668873",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -65,5 +65,19 @@
     "staged_gift_and_ring_preservation_verified": true,
     "desktop_scripts_unchanged_verified": true,
     "new_browser_gameplay_verified": false
+  },
+  "selected_megas_update": {
+    "new_forms_items_metrics_trainer_release_compiled": true,
+    "native_front_contact_sheet_inspected": true,
+    "original_mega_tyranitar_art_backed_up": true,
+    "gift_and_legacy_honchkrowite_upgrade_native_unit": "passed",
+    "mega_battle_run_verified": false,
+    "new_browser_gameplay_verified": false,
+    "isaac_team": [
+      "QUAGSIRE",
+      "BRELOOM",
+      "FLAPPLE",
+      "CERULEDGE"
+    ]
   }
 }

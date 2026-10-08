@@ -14,6 +14,8 @@ The room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2
 
 [Website Mega Stone gift](docs/website-mega-stone-gift.md): new and existing saves receive every Mega Stone and a Mega Ring. Equip the stone, then use your own party in challenges. Desktop editions are unchanged.
 
+[Selected Mega update](docs/selected-megas-and-ceruledge.md): IF Mega Tyranitar art, new Mega Honchkrow with Honchkrowite, and Ceruledge added to Isaac. Honchkrow is obtainable in the Champions banner; older website saves receive the new stone.
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.
