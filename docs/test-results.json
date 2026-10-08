@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "d51e436f88fd18f31c876f519490ae696f188c83e43baa7b0ca4dd8875668873",
+  "game_archive_sha256": "24bc138493d8e3d21bfe6f35b96c53af1d00d74c5ac55fc1faede46189f8c359",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -79,5 +79,31 @@
       "FLAPPLE",
       "CERULEDGE"
     ]
+  },
+  "approved_mega_balance": {
+    "tyranitar_types": [
+      "ROCK",
+      "FIRE"
+    ],
+    "tyranitar_stats_hp_atk_def_spa_spd_spe": [
+      100,
+      145,
+      125,
+      125,
+      100,
+      90
+    ],
+    "tyranitar_ability": "THERMALARMOR",
+    "honchkrow_stats_hp_atk_def_spa_spd_spe": [
+      100,
+      150,
+      72,
+      140,
+      72,
+      86
+    ],
+    "honchkrow_ability": "PLAGUEDOCTOR",
+    "controlled_native_handler_unit": "passed",
+    "full_real_battle_or_browser_verification": false
   }
 }

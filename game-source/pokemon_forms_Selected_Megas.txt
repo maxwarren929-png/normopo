@@ -1,9 +1,9 @@
-# Tyranitar form 1 mechanics remain in pokemon_forms.txt unchanged.
+# Approved Rock/Fire Tyranitar form 1 redesign is in pokemon_forms.txt.
 [HONCHKROW,1]
 FormName = Mega Honchkrow
 MegaStone = HONCHKROWITE
 UnmegaForm = 0
 Types = DARK,FLYING
-BaseStats = 100,155,72,101,105,72
-Abilities = MOXIE
-HiddenAbilities = MOXIE
+BaseStats = 100,150,72,86,140,72
+Abilities = PLAGUEDOCTOR
+HiddenAbilities = PLAGUEDOCTOR

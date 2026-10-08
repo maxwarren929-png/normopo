@@ -1,0 +1,11 @@
+# Original Essentials Mega Tyranitar record, preserved before the approved redesign.
+[TYRANITAR,1]
+FormName = Mega Tyranitar
+MegaStone = TYRANITARITE
+BaseStats = 100,164,150,71,95,120
+BaseExp = 350
+HiddenAbilities = SANDSTREAM
+Height = 2.5
+Weight = 255.0
+Pokedex = Due to the colossal power poured into it, this Pokémon's back split right open. Its destructive instincts are the only thing keeping it moving.
+Generation = 6

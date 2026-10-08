@@ -16,6 +16,8 @@ The room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2
 
 [Selected Mega update](docs/selected-megas-and-ceruledge.md): IF Mega Tyranitar art, new Mega Honchkrow with Honchkrowite, and Ceruledge added to Isaac. Honchkrow is obtainable in the Champions banner; older website saves receive the new stone.
 
+Approved Mega balance: Tyranitar is Rock/Fire, Thermal Armor, 685 BST. Honchkrow is Dark/Flying, Plague Doctor, 620 BST. See [mechanics and final stats](docs/selected-megas-and-ceruledge.md). Banner pools remain separate; no banner-pool redesign has been approved.
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.

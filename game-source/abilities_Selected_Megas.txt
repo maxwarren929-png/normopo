@@ -1,0 +1,7 @@
+[THERMALARMOR]
+Name = Thermal Armor
+Description = Halves damage from Water and Ground moves.
+#-------------------------------
+[PLAGUEDOCTOR]
+Name = Plague Doctor
+Description = Damaging Dark moves have a 30% chance to poison.

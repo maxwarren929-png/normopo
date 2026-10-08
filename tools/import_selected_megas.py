@@ -19,15 +19,15 @@ from PIL import Image, ImageDraw
 SELECTIONS = [('TYRANITAR', '248.248', 'dabouiw'),
               ('HONCHKROW', '256.256a', 'vultures')]
 FOLDERS = ['Front', 'Front shiny', 'Back', 'Back shiny', 'Icons', 'Icons shiny']
-FORMS = """# Tyranitar form 1 mechanics remain in pokemon_forms.txt unchanged.
+FORMS = """# Approved Rock/Fire Tyranitar form 1 redesign is in pokemon_forms.txt.
 [HONCHKROW,1]
 FormName = Mega Honchkrow
 MegaStone = HONCHKROWITE
 UnmegaForm = 0
 Types = DARK,FLYING
-BaseStats = 100,155,72,101,105,72
-Abilities = MOXIE
-HiddenAbilities = MOXIE
+BaseStats = 100,150,72,86,140,72
+Abilities = PLAGUEDOCTOR
+HiddenAbilities = PLAGUEDOCTOR
 """
 ITEMS = """[HONCHKROWITE]
 Name = Honchkrowite
@@ -123,12 +123,14 @@ def main():
         'Shiny battle art and icons match normal art as placeholders.',
         'Two-frame 128x64 menu icons derive from the native fronts.',
         '',
-        'Tyranitar form 1 stats, abilities, stone and existing metrics are untouched.',
+        'Tyranitar form 1 uses the approved Rock/Fire Thermal Armor redesign.',
+        'Original form record and art are preserved; stone and existing metrics remain.',
         'Existing Tyranitar offsets are FrontSprite 11,10 and BackSprite 0,48.',
         'Those offsets predate this art; battle placement has not been checked in-game.',
         'Honchkrow form 1 was unused in all shared form PBS files, including Gen 9.',
-        'Honchkrow is Dark/Flying, 605 BST, Moxie, Honchkrowite, UnmegaForm 0.',
-        'No custom moves, abilities, Mega animation hooks or Trainer PBS changes.',
+        'Honchkrow is Dark/Flying, 620 BST, Plague Doctor, Honchkrowite, UnmegaForm 0.',
+        'Custom abilities are registered separately by CLI_Selected_Mega_Abilities.',
+        'The import tool does not alter moves, Mega animation hooks or Trainer PBS.',
         'Uses the existing generic DBK Mega presentation.',
         'Form and item PBS both live in Demo, with matching Normanhurst symlinks.',
         'Import tool performs no compilation, tests, network access or deployment.',
