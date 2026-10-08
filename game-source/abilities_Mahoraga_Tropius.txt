@@ -1,0 +1,8 @@
+# Original CLI ability definitions. No imported ability names or effects.
+[ADAPTATION]
+Name = Adaptation
+Description = After taking damage from a move, halves later damage from that same move until switching out.
+
+[FRUITFULCANOPY]
+Name = Fruitful Canopy
+Description = After using a Grass-type move, has a 25% chance to restore a quarter of its maximum HP.

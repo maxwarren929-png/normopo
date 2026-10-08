@@ -1,0 +1,29 @@
+Mahoraga Machamp and Mega Tropius, Infinite Fusion community fan art.
+MACHAMP form 1: Mahoraga, IF 315.68c, artist 15kazuki.
+TROPIUS form 1: Mega Tropius, IF 556.556, artist nighthawk3380.
+Third-party art is not covered by the CLI MIT license. Keep artist credits.
+Resolved with /home/ko/if-fuser/server.py resolve_sprite, local files/cache only.
+Native full 96x96 RGBA source cells are retained without palette quantization.
+Source backup directory: Graphics/Pokemon/Mahoraga Tropius Sources.
+Battle fronts crop transparent bounds, scale exactly 2x nearest-neighbor,
+and bottom-center in 192x192 frames. No artwork is redrawn.
+Back sprites mirror fronts as placeholders, not genuine rear views.
+Shiny battle art and icons match normal art as placeholders.
+Two-frame 128x64 menu icons use the selected-Mega 40x56 thumbnail method.
+Tropiusite copies the existing Tyranitarite icon as a placeholder.
+Both form 1 IDs were unused in shared form PBS, including Gen 9 backups.
+Base Machamp/Tropius forms, art, main PBS and existing items remain untouched.
+Mahoraga: Fighting/Steel, 555 BST, Adaptation. Not a Mega Evolution.
+Mega Tropius: Grass/Dragon, 560 BST, Fruitful Canopy, Tropiusite, UnmegaForm 0.
+Essentials Species.schema(true) does not accept Name for form records.
+FormName = Mahoraga records the intended name. The edition plugin must
+supply the species display name; this import does not change schema or scripts.
+Ability records/handlers and Mahoraga obtainability are implemented separately.
+New form/item/metrics PBS and credits have matching Normanhurst symlinks.
+Graphics are shared by the existing Normanhurst Graphics directory symlink.
+No compilation, suites, browser checks, network access or deployment performed.
+
+Native 315.68c: custom:315/315c.png@68; credited artist 15kazuki.
+Graphics/Pokemon/Mahoraga Tropius Sources/315.68c.png SHA256 2fabc753d173e1806068dad68f7d69f9c6c2a34d5ad4c61843e0d5fd4410543e
+Native 556.556: custom:556/556.png@556 (dl); credited artist nighthawk3380.
+Graphics/Pokemon/Mahoraga Tropius Sources/556.556.png SHA256 16bd2945b46d1b6d9db71e62d45241395a99c24c419824d58e735eade8c541cd

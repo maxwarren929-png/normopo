@@ -1,0 +1,11 @@
+[MACHAMP,1]
+BackSprite = 0,-10
+FrontSprite = 0,0
+ShadowX = 0
+ShadowSize = 2
+
+[TROPIUS,1]
+BackSprite = 0,-10
+FrontSprite = 0,0
+ShadowX = 0
+ShadowSize = 2

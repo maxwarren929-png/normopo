@@ -2060,6 +2060,11 @@
     "file": "0400-CLI_Selected_Mega_Abilities.rb"
   },
   {
+    "id": 1129072989,
+    "name": "CLI_Mahoraga_Tropius_Abilities",
+    "file": "0400-CLI_Mahoraga_Tropius_Abilities.rb"
+  },
+  {
     "id": 1129072994,
     "name": "CLI_Bond_Of_Life",
     "file": "0400-CLI_Bond_Of_Life.rb"
@@ -2108,6 +2113,11 @@
     "id": 1129072904,
     "name": "CLI_Bitmap_Fonts",
     "file": "0400-CLI_Bitmap_Fonts.rb"
+  },
+  {
+    "id": 1129072992,
+    "name": "CLI_Mahoraga_Gift",
+    "file": "0400-CLI_Mahoraga_Gift.rb"
   },
   {
     "id": 809929,

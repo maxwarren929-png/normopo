@@ -1,0 +1,7 @@
+[TROPIUSITE]
+Name = Tropiusite
+NamePlural = Tropiusites
+Pocket = 1
+Price = 0
+Flags = MegaStone
+Description = A Mega Stone that enables Tropius to become Mega Tropius.

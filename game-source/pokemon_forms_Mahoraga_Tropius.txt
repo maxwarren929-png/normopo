@@ -1,0 +1,17 @@
+# Name is not accepted by the Essentials form schema. The edition plugin
+# must supply the Mahoraga display name; FormName retains the intended name.
+[MACHAMP,1]
+FormName = Mahoraga
+Types = FIGHTING,STEEL
+BaseStats = 90,130,100,70,65,100
+Abilities = ADAPTATION
+HiddenAbilities = ADAPTATION
+
+[TROPIUS,1]
+FormName = Mega Tropius
+MegaStone = TROPIUSITE
+UnmegaForm = 0
+Types = GRASS,DRAGON
+BaseStats = 99,88,113,31,112,117
+Abilities = FRUITFULCANOPY
+HiddenAbilities = FRUITFULCANOPY

@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "24bc138493d8e3d21bfe6f35b96c53af1d00d74c5ac55fc1faede46189f8c359",
+  "game_archive_sha256": "5f1ce871553d94fdd82974409fab394a179c8274d41c92aa067d0452d52911d3",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -105,5 +105,12 @@
     "honchkrow_ability": "PLAGUEDOCTOR",
     "controlled_native_handler_unit": "passed",
     "full_real_battle_or_browser_verification": false
+  },
+  "mahoraga_tropius": {
+    "controlled_native_ability_preload": "passed",
+    "release_compiled": true,
+    "native_front_contact_sheet_inspected": true,
+    "new_browser_gameplay_verified": false,
+    "full_real_battle_verification": false
   }
 }
