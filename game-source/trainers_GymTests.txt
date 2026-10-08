@@ -66,6 +66,26 @@ Pokemon = GENGAR,45
     Nature = TIMID
     IV = 20,20,20,20,20,20
 #-------------------------------
+[LEADER_Clay,Isaac]
+LoseText = Good battle!
+Pokemon = QUAGSIRE,55
+    Ability = UNAWARE
+    Item = LEFTOVERS
+    Moves = SCALD,EARTHQUAKE,RECOVER,TOXIC
+    Nature = RELAXED
+    IV = 20,20,20,20,20,20
+Pokemon = BRELOOM,55
+    Ability = TECHNICIAN
+    Moves = SPORE,MACHPUNCH,BULLETSEED,ROCKTOMB
+    Nature = ADAMANT
+    IV = 20,20,20,20,20,20
+Pokemon = FLAPPLE,55
+    Ability = RIPEN
+    Item = SITRUSBERRY
+    Moves = GRAVAPPLE,DRAGONCLAW,DRAGONDANCE,ACROBATICS
+    Nature = ADAMANT
+    IV = 20,20,20,20,20,20
+#-------------------------------
 # Martin is an additional trainer challenge, not an assigned story gym.
 [COOLTRAINER_M,Martin]
 LoseText = Good battle!

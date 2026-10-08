@@ -8,7 +8,8 @@ module CLINormanhurstGymTests
     { :name => "Karna", :gym => 4, :trainer_type => :LEADER_Morty, :level => 45, :format => :double },
     { :name => "Oliver", :gym => 6, :trainer_type => :LEADER_Marlon, :level => 65, :format => :single },
     { :name => "Kaelan", :gym => 8, :trainer_type => :LEADER_Drayden, :level => 85, :format => :single },
-    { :name => "Martin", :gym => nil, :trainer_type => :COOLTRAINER_M, :level => 55, :format => :single }
+    { :name => "Martin", :gym => nil, :trainer_type => :COOLTRAINER_M, :level => 55, :format => :single },
+    { :name => "Isaac", :gym => 5, :trainer_type => :LEADER_Clay, :level => 55, :format => :single }
   ].map(&:freeze).freeze
 
   LOAN_TEAM = [
@@ -60,7 +61,7 @@ module CLINormanhurstGymTests
 
   def self.menu
     return unless available?
-    ordered = ROSTER.each_with_index.sort_by { |data, index| data[:level] }
+    ordered = ROSTER.each_with_index.sort_by { |data, index| [data[:level], data[:gym] ? 0 : 1] }
     commands = ordered.map do |data, index|
       data[:gym] ? "#{data[:name]} - Gym #{data[:gym]}, Lv. #{data[:level]}" : "#{data[:name]} - Lv. #{data[:level]}"
     end

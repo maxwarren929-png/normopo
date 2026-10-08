@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "d1b3594ee9a2770866d6964449c2b4cdb2f63eb44ec400a8dacc81e0d7a9fed4",
+  "game_archive_sha256": "92d89d393368f06ded2760830d7158b580b11a20b85221ab658b6a014302e6d3",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -40,5 +40,22 @@
     "original_and_exception_restoration": "passed",
     "new_browser_gameplay_verified": false,
     "full_real_battle_suite_rerun": false
+  },
+  "isaac_update": {
+    "gym": 5,
+    "level": 55,
+    "team": [
+      "QUAGSIRE",
+      "BRELOOM",
+      "FLAPPLE"
+    ],
+    "eight_challenges_level_matching_and_restoration_native_unit": "passed",
+    "full_real_battle_suite_rerun": false,
+    "new_browser_gameplay_verified": false,
+    "sprite_favourites_checked": 18,
+    "new_unassigned_favourites": [
+      "248.248",
+      "256.256a"
+    ]
   }
 }

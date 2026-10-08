@@ -7,7 +7,8 @@ module CLINormanhurstGymsSmoke
     ["Karna",  4, :LEADER_Morty,  45, :double, [[:GALLADE, 2], [:GARDEVOIR, 3], [:GENGAR, 0]]],
     ["Oliver", 6, :LEADER_Marlon, 65, :single, [[:LEAFEON, 0], [:LAPRAS, 0], [:BLASTOISE, 0]]],
     ["Kaelan", 8, :LEADER_Drayden,85, :single, [[:NOIVERN, 0], [:GLACEON, 0], [:ABSOL, 3]]],
-    ["Martin", nil, :COOLTRAINER_M,55, :single, [[:DRAGONITE, 0]]]
+    ["Martin", nil, :COOLTRAINER_M,55, :single, [[:DRAGONITE, 0]]],
+    ["Isaac", 5, :LEADER_Clay,55, :single, [[:QUAGSIRE, 0], [:BRELOOM, 0], [:FLAPPLE, 0]]]
   ].freeze
 
   def self.check(condition, message)
@@ -147,7 +148,7 @@ module CLINormanhurstGymsSmoke
     expected = ROSTER.map do |name, gym, type, level, format, team|
       { :name => name, :gym => gym, :trainer_type => type, :level => level, :format => format }
     end
-    check(roster == expected, "ROSTER differs from six gyms and Martin's Dragonite challenge")
+    check(roster == expected, "ROSTER differs from seven gyms and Martin's Dragonite challenge")
     install_hook
     @original_party, @original_bag, @original_stats = $player.party, $bag, $stats
     party_dump = Marshal.dump(@original_party)

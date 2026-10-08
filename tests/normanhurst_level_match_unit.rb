@@ -56,6 +56,8 @@ CLINormanhurstGymTests::ROSTER.each_with_index do |entry, index|
 end
 martin = CLINormanhurstGymTests::ROSTER.find { |entry| entry[:name] == 'Martin' }
 raise 'Martin missing or wrong level' unless martin && martin[:level] == 55 && martin[:gym].nil?
+isaac = CLINormanhurstGymTests::ROSTER.find { |entry| entry[:name] == 'Isaac' }
+raise 'Isaac missing or wrong gym/level' unless isaac && isaac[:level] == 55 && isaac[:gym] == 5
 TrainerBattle.expected_level = 15
 TrainerBattle.throw_after_check = true
 begin
@@ -66,5 +68,5 @@ rescue => error
 end
 raise 'exception restoration failed' unless $player.party.equal?(original_party) && Marshal.dump(original_party) == party_dump && $bag.equal?(original_bag)
 File.write(ENV['CLI_LEVEL_MATCH_RESULT'] || 'level-match-result.txt', 'NORMANHURST_LEVEL_MATCH_UNIT_PASSED')
-puts 'NORMANHURST_LEVEL_MATCH_UNIT_PASSED: all seven opponent levels; originals and exception restoration'
+puts 'NORMANHURST_LEVEL_MATCH_UNIT_PASSED: all eight challenges; originals and exception restoration'
 exit
