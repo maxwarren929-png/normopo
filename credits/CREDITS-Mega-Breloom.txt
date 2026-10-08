@@ -1,0 +1,26 @@
+Mega Breloom, Infinite Fusion community fan art.
+BRELOOM form 1: IF 355.368b, Breloom + Haxorus, artists hero.drawing & ramxxxxxxxxxse.
+Exact current Sprite_Credits.csv row: 355.368b,hero.drawing & ramxxxxxxxxxse,main,
+Double credit checked exactly, including spacing around the ampersand.
+Third-party art is not covered by the CLI MIT license. Keep both artist credits.
+Resolved with /home/ko/if-fuser/server.py resolve_sprite, local files/cache only.
+Network sockets and urlopen blocked; fetch_sheet replaced with cache-only lookup.
+Resolver source suffix (dl) means patched cache lookup, not a network download.
+Native full 96x96 RGBA source cell retained without palette quantization.
+Source backup directory: Graphics/Pokemon/Mega Breloom Sources.
+Battle fronts crop transparent bounds, scale exactly 2x nearest-neighbor,
+and bottom-center in 192x192 frames. No artwork is redrawn.
+Back sprites mirror fronts as placeholders, not genuine rear views.
+Shiny battle art and icons match normal art as placeholders.
+Two-frame 128x64 menu icons use the selected-Mega 40x56 thumbnail method.
+Breloomite copies the existing Tyranitarite icon as a placeholder.
+BRELOOM form 1 was unused in shared form PBS, including all Gen 9 backups.
+Provisional Grass/Fighting, Technician, 560 BST, +100 over ordinary Breloom.
+PBS stat order HP/Attack/Defense/Speed/SpAtk/SpDef: 60,160,100,100,60,80.
+MegaStone BRELOOMITE, UnmegaForm 0. Normal Breloom is unchanged.
+New form/item/metrics PBS and credits have matching Normanhurst symlinks.
+Graphics are shared by the existing Normanhurst Graphics directory symlink.
+No scripts, manifests, gacha, Trainer PBS or gift edits.
+No compilation, suites, browser checks or deployment performed.
+Native 355.368b: custom:355/355b.png@368 (dl); credited artists hero.drawing & ramxxxxxxxxxse.
+Graphics/Pokemon/Mega Breloom Sources/355.368b.png SHA256 d02669245f51909d81d058e299e0db715c9d220f58d7e1dd7a285dda3baefe27

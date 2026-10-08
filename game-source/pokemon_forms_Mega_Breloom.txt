@@ -1,0 +1,9 @@
+# Provisional Mega Breloom design, approved IF Breloom + Haxorus artwork.
+[BRELOOM,1]
+FormName = Mega Breloom
+MegaStone = BRELOOMITE
+UnmegaForm = 0
+Types = GRASS,FIGHTING
+BaseStats = 60,160,100,100,60,80
+Abilities = TECHNICIAN
+HiddenAbilities = TECHNICIAN

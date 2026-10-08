@@ -67,6 +67,7 @@ Pokemon = GENGAR,45
     IV = 20,20,20,20,20,20
 #-------------------------------
 [LEADER_Clay,Isaac]
+Items = MEGARING
 LoseText = Good battle!
 Pokemon = QUAGSIRE,55
     Ability = UNAWARE
@@ -75,6 +76,7 @@ Pokemon = QUAGSIRE,55
     Nature = RELAXED
     IV = 20,20,20,20,20,20
 Pokemon = BRELOOM,55
+    Item = BRELOOMITE
     Ability = TECHNICIAN
     Moves = SPORE,MACHPUNCH,BULLETSEED,ROCKTOMB
     Nature = ADAMANT

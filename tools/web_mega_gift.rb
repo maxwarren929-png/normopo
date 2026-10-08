@@ -19,10 +19,10 @@ module CLIWebMegaGift
     return unless $player && $bag && $PokemonGlobal
     return unless CLINormanhurstGacha.available?
     return if $game_temp && $game_temp.in_battle
-    # Legacy website gifts predate Honchkrowite and Tropiusite. Preserve those claims even if
+    # Legacy website gifts predate Honchkrowite, Tropiusite and Breloomite. Preserve those claims even if
     # their stones are now held/sold, but deliver the newly registered stone.
     if !$PokemonGlobal.cli_web_mega_gift_items
-      $PokemonGlobal.cli_web_mega_gift_items = $PokemonGlobal.cli_web_mega_gift_received ? item_ids.reject { |id| [:HONCHKROWITE, :TROPIUSITE].include?(id) } : []
+      $PokemonGlobal.cli_web_mega_gift_items = $PokemonGlobal.cli_web_mega_gift_received ? item_ids.reject { |id| [:HONCHKROWITE, :TROPIUSITE, :BRELOOMITE].include?(id) } : []
     end
     claimed = $PokemonGlobal.cli_web_mega_gift_items
     missing = item_ids - claimed

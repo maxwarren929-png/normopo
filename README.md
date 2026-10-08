@@ -20,6 +20,8 @@ Approved Mega balance: Tyranitar is Rock/Fire, Thermal Armor, 685 BST. Honchkrow
 
 [Mahoraga and Mega Tropius](docs/mahoraga-mega-tropius.md): claim Mahoraga from the room pause menu; roll Tropius in Champions and equip the gifted Tropiusite. Adaptation works midway through multihit moves. Fruitful Canopy has a 25% chance to heal ¼ HP after a Grass move.
 
+[Mega Breloom](docs/mega-breloom.md): Isaac now has a Mega-capable Breloom with the selected IF art. Players receive Breloomite through the website gift. Provisional Grass/Fighting, Technician, 560 BST.
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.
