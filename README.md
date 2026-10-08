@@ -4,7 +4,9 @@ Play: https://maxwarren929-png.github.io/normopo/
 
 Experimental browser demo. Click the play symbol if prompted, then wait for the title screen to finish loading. The first visit downloads roughly 232 MiB. Later visits reuse unchanged cached files.
 
-The room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2]`. The pause menu also has a PC shortcut. [Cleanup notes](docs/two-npc-room.md).
+[Own-region opening](docs/own-region-opening.md): New Game now starts in your house. Visit Mum and Ms Harman's lab, choose a starter, then investigate the station cancellation and Bush Track sabotage. The next town and Max's story Gym are not built yet. Existing development-room saves can choose **Menu → Story opening**. In the opening, **Menu → Development room** returns to the test features.
+
+The separate development room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2]`. The pause menu also has a PC shortcut. [Cleanup notes](docs/two-npc-room.md).
 
 [Banner navigation and PC update](docs/banner-controls-pc.md): both-direction banner cycling was checked, and the storage box screen opens from the new terminal.
 

@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "233e3d1335dad41e79989f90d0186671c5e056f5e15cd952e4e723cbe7944a16",
+  "game_archive_sha256": "be6d37060b05e4cd2d386ac0f233f8afc0c2a1299ea46128ef70c99ae300a1e8",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -119,5 +119,24 @@
     "isaac_mega_ring_and_stone_installed": true,
     "full_real_battle_verification": false,
     "new_browser_gameplay_verified": false
+  },
+  "own_region_opening": {
+    "start": [
+      201,
+      3,
+      8
+    ],
+    "maps": [
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "native_startup_render_reachability": "passed",
+    "native_screenshots_inspected": true,
+    "full_story_sequence_verified": false,
+    "new_browser_gameplay_verified": false,
+    "full_region_complete": false
   }
 }
