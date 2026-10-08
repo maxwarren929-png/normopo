@@ -111,6 +111,29 @@ def gpu_gacha_text_scripts(data):
     return rm.dumps(archive)
 
 
+def web_mega_gift_scripts(data):
+    """Install the website-only, once-per-save Mega Stone gift."""
+    archive = rm.loads(data)
+    rows = [row for row in archive if row[1].data == b'CLI_Normanhurst_Gacha']
+    if len(rows) != 1:
+        raise ValueError('Expected one Normanhurst gacha script for web Mega gift')
+    source = zlib.decompress(rows[0][2].data)
+    if b'CLIWebMegaGift' in source:
+        raise ValueError('Web Mega gift already installed')
+    gift = Path(__file__).with_name('web_mega_gift.rb').read_bytes()
+    rows[0][2].data = zlib.compress(source + b'\n' + gift)
+    gyms = [row for row in archive if row[1].data == b'CLI_Normanhurst_Gym_Tests']
+    if len(gyms) != 1:
+        raise ValueError('Expected one Normanhurst gym script for Mega Ring preservation')
+    gym_source = zlib.decompress(gyms[0][2].data).replace(b'\r\n', b'\n')
+    before = b'      $bag = PokemonBag.new\n'
+    if gym_source.count(before) != 1:
+        raise ValueError('Expected one temporary challenge Bag initialization')
+    after = before + b'      $bag.add(:MEGARING) if original_bag.has?(:MEGARING)\n'
+    gyms[0][2].data = zlib.compress(gym_source.replace(before, after, 1))
+    return rm.dumps(archive)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project', default='normanhurst', type=Path)
@@ -121,6 +144,8 @@ def main():
                         help='Defer the staged web battle-animation database load until first use')
     parser.add_argument('--gpu-gacha-text', action='store_true',
                         help='Animate staged gacha text with GPU tone instead of new font tints')
+    parser.add_argument('--web-mega-gift', action='store_true',
+                        help='Give each website save every Mega Stone and a Mega Ring')
     parser.add_argument('--no-path-cache', action='store_true',
                         help='Skip slow recursive asset indexing in the experimental browser runtime')
     args = parser.parse_args()
@@ -132,7 +157,8 @@ def main():
     suffix = (('-buffered' if args.buffered_animation_load else '')
               + ('-deferred' if args.defer_battle_animations else '')
               + ('-no-cache' if args.no_path_cache else '')
-              + ('-gpu-gacha' if args.gpu_gacha_text else ''))
+              + ('-gpu-gacha' if args.gpu_gacha_text else '')
+              + ('-web-mega-gift' if args.web_mega_gift else ''))
     archive = output / (project.slug + suffix + '.mkxpz')
     with tempfile.TemporaryDirectory(prefix='.web-package-', dir=output) as temp:
         stage = Path(temp) / 'game'
@@ -147,7 +173,7 @@ def main():
         if args.no_path_cache:
             settings['pathCache'] = False
         config.write(stage / 'mkxp.json', settings)
-        if args.buffered_animation_load or args.defer_battle_animations or args.gpu_gacha_text:
+        if args.buffered_animation_load or args.defer_battle_animations or args.gpu_gacha_text or args.web_mega_gift:
             scripts = stage / 'Data/Scripts.rxdata'
             data = scripts.read_bytes()
             if args.buffered_animation_load:
@@ -156,6 +182,8 @@ def main():
                 data = deferred_battle_animation_scripts(data)
             if args.gpu_gacha_text:
                 data = gpu_gacha_text_scripts(data)
+            if args.web_mega_gift:
+                data = web_mega_gift_scripts(data)
             scripts.write_bytes(data)
         with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_STORED, allowZip64=True) as bundle:
             for path in sorted(stage.rglob('*')):
@@ -165,7 +193,7 @@ def main():
         'sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
         'size_bytes': archive.stat().st_size, 'compression': 'store',
         'web_runtime_tested': False,
-        'compatibility_adjustments': (['buffered battle-animation load'] if args.buffered_animation_load else []) + (['deferred battle-animation load'] if args.defer_battle_animations else []) + (['pathCache disabled'] if args.no_path_cache else []) + (['GPU-toned gacha text'] if args.gpu_gacha_text else []),
+        'compatibility_adjustments': (['buffered battle-animation load'] if args.buffered_animation_load else []) + (['deferred battle-animation load'] if args.defer_battle_animations else []) + (['pathCache disabled'] if args.no_path_cache else []) + (['GPU-toned gacha text'] if args.gpu_gacha_text else []) + (['website Mega Stone gift'] if args.web_mega_gift else []),
         'note': 'Local compatibility experiment only. Not permission to redistribute third-party assets.'
     }
     (output / ('package' + suffix + '.json')).write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')

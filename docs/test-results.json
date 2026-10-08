@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "92d89d393368f06ded2760830d7158b580b11a20b85221ab658b6a014302e6d3",
+  "game_archive_sha256": "d8b784bc94f47c8e4e3692cf38777a201478618e6496d3a6d40f80b004169f6e",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -57,5 +57,13 @@
       "248.248",
       "256.256a"
     ]
+  },
+  "website_mega_gift": {
+    "ordinary_and_custom_stones_and_ring_unit": "passed",
+    "duplicate_prevention_and_full_bag_retry_unit": "passed",
+    "battle_bag_guard_unit": "passed",
+    "staged_gift_and_ring_preservation_verified": true,
+    "desktop_scripts_unchanged_verified": true,
+    "new_browser_gameplay_verified": false
   }
 }

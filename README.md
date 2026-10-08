@@ -12,6 +12,8 @@ The room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2
 
 [Isaac and the sprite check](docs/isaac-and-fusion-sprite-check.md): Gym 5 now has Quagsire, Breloom and Flapple at provisional level 55. Two new IF favourites were checked, not imported without a character assignment.
 
+[Website Mega Stone gift](docs/website-mega-stone-gift.md): new and existing saves receive every Mega Stone and a Mega Ring. Equip the stone, then use your own party in challenges. Desktop editions are unchanged.
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.
