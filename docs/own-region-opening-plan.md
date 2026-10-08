@@ -1,0 +1,38 @@
+# Normanhurst opening map integration plan
+
+Audit only, 2026-10-03. No game code, maps, imports, or builds were changed. This plan assumes the approved scope: make Normanhurst's own opening region with selected layouts/art from the Remastered Kanto Johto pack. Do not import all of Kanto, and do not alter Demo or Hornsby behavior.
+
+## Current state and preservation
+
+`normanhurst/poke.toml` still starts at `[1, 5, 5]`. `normanhurst/maps/001-first-room.json` is the only active map source. Keep it as the test map; do not delete it or repurpose it. The current five-map opening is only in `backups/story-maps-20261003-185938/normanhurst/maps/`: 2 Home Suburb (32x21), 3 Your house (20x15), 4 Ms Harman's Lab (20x15), 76 Home Suburb Station (32x24), 77 Bush Track (36x24). Those IDs are absent from current `normanhurst/maps/` and were also assigned in the previous authoring run, so restore those backups only after choosing a new ID scheme. Backups contain the paired Normanhurst `poke.toml`, `map_connections.txt`, and `map_metadata.txt` too.
+
+Do not run `tools/author_home_suburb.py` or `tools/author_station.py` as-is. The first regenerates both Normanhurst and Hornsby, replaces edition PBS metadata/connections and deletes map 1. The station authoring helper writes shared Demo assets and `demo/scripts/0400-Cherubi_Station.rb`. The current script sources are `demo/scripts/0400-Home_Suburb.rb`, `0400-Ozerim_Story.rb`, and `0400-Cherubi_Station.rb`; they are shared scripts, not Normanhurst-gated. Build hook/edition records must gate new behavior so it cannot leak to other editions.
+
+## Story dependencies and transitions
+
+The backed-up town uses `Entrance HOME` at [8,7] to map 3 [3,8], `Entrance LAB` at [18,13] to map 4 [6,12], and station player-touch events [14,1]/[15,1]. House autorun at [0,0] calls `HomeSuburb.initialize_player("Ms Harman")`, then erases itself; it welcomes only once via saved `:welcomed`. House door returns to map 2 [8,8]. Lab exits to map 2 [18,14]. Station `OzerimStory.travel(77,18,22,8,true)` gates the north trip until supplies and cancellation flags are set. Bush Track returns to station map 76 [14,2]; station returns to town map 2 [14,2]. The lab starter/rival flow sets `:chosen`, `:battled`, awards supplies/Pokedex and calls `issue_parcel`. The station colleague and track events depend on saved `OzerimStory` flags `parcel`, `cancelled`, `defeated`, `repaired`, `delivered`, `reported`; `introduced` is added dynamically.
+
+The scripts are currently not reached from Normanhurst's active map 1. They are referenced by the backup story maps and are consequently dormant in the current map set. `System.start_map_id` is built from `poke.toml` start in the project compiler; changing start to the new house/map is a required separate integration decision. There is no independent first-story entry flag; `HomeSuburb.state`/`OzerimStory.state` lazily create save state, and the house autorun's erase is per-map runtime behavior. Keep a story-start autorun only on the new house and retain its saved `welcomed` guard.
+
+## Pack layout findings
+
+The extracted review pack is at `demo/build/remastered-map-pack-review/extracted/Remastered Kanto Johto Map Pack/`. It has maps/MapInfos and its own Tilesets archive. Candidate compact pack layouts inspected: New Bark Town map 79 is 22x48 with tileset 23, Route 29 map 104 is 84x38 with tileset 23, Pallet Town map 55 is 52x20 with tileset 21, and Route 1 map 10 is 52x40 with tileset 21. Cherrygrove map 80 is 86x55, unsuitable as the small opening town. New Bark Town is the strongest starter-town basis by width; it is tall, so author a trimmed 22-wide playing slice or select region of its layout rather than adopting the whole map. Route 29 is a suitable wooded-track candidate only if pared down to a short opening segment. A smaller suitable route candidate was not confirmed in this audit; inspect all pack route map dimensions and tile visuals before selecting the final layout.
+
+Pack map IDs run at least through 152, while current story IDs 76/77 overlap pack maps. Never copy pack IDs wholesale into active project sources. Existing project compiler supports JSON map sources plus references to base maps; audit `essentials_cli/project.py` and `maps.py`. For authored maps that use imported pack tiles, their tileset IDs and tile IDs must exist in the destination build, and tileset graphics/records need a controlled Normanhurst-only import. Do not assume the pack's tileset IDs equal Demo Essentials IDs. Copy selected pack records/assets into the Normanhurst build input via edition-specific overlay/build records, not shared Essentials source data.
+
+## Safe proposed route
+
+1. Leave `001-first-room.json` and `[1,5,5]` untouched until the new opening passes compile/runtime tests. Reserve a new contiguous range for the new opening maps only after checking every ID present in `demo/essentials/Data/MapInfos.rxdata`, every imported pack map ID, and all compiled edition records. Use fresh high IDs above the full combined inventory, not 2-4 or 76-77; current inventory evidence is insufficient to name the safe numeric range yet.
+2. Create Normanhurst-only map sources in `normanhurst/maps/` for starter suburb, house, lab, station, and short bush track. Their transitions should refer only to the new IDs; retain the map 1 test fixture. Update `normanhurst/poke.toml` start only after a reviewable map/runtime check, then choose a safe starting coordinate indoors.
+3. Reuse the backed-up event/story design as a reference, but allocate and namespace event IDs per map (map event IDs are local); preserve the exact professor string expected by the existing methods. Gate any shared script edits with Normanhurst edition records. Prefer a Normanhurst-only script overlay if compiler support allows it, rather than changing shared scripts.
+4. Add only selected pack layout/art and the minimum records/graphics needed. Explicitly identify tile IDs used and confirm destination tileset dimensions/passages, autotiles, priorities, and graphics names. Avoid importing unrelated towns/maps. Keep asset provenance/credits from the pack intact.
+5. Restore story map metadata only as an edition-specific overlay. The existing backup metadata assigns names to 2/3/4 and 76/77, and [076]/[077] settings. Do not overwrite current shared metadata or connections. Add corresponding metadata for new IDs and confirm transfer/resolution behavior.
+6. Update or replace authoring tooling so running it cannot overwrite map 1, touch Hornsby, or write shared scripts/assets without an explicit edition gate. Add tests that compile Normanhurst's full new graph and assert transfer targets, while Demo/Hornsby outputs remain unchanged.
+
+## Blockers before implementation
+
+- Numeric free-ID range is not established: enumerate IDs from the complete destination Essentials `MapInfos.rxdata`, map files, selected pack `MapInfos.rxdata`, and compiled edition overlays first. Old story IDs 76/77 demonstrably collide with pack IDs.
+- The pack map listing/dimensions above came from pack metadata; visual tile suitability and smaller route candidates remain unverified. Inspect screenshots/map tile layers before committing to New Bark Town or Route 29.
+- Verify how edition records currently gate scripts, graphics, PBS and metadata. Shared scripts and station generator are a cross-edition risk.
+- Verify licensing/credit terms for the specific pack and preserve its supplied credits before importing any graphics.
+- Runtime startup coordinate, NPC collision, movement passages and complete outbound/return warp graph need tests after the chosen map IDs and layouts are fixed.

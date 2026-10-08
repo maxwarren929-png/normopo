@@ -2120,6 +2120,11 @@
     "file": "0400-CLI_Mahoraga_Gift.rb"
   },
   {
+    "id": 1129072993,
+    "name": "CLI_Normanhurst_Story_Access",
+    "file": "0400-CLI_Normanhurst_Story_Access.rb"
+  },
+  {
     "id": 809929,
     "name": "Main",
     "file": "0401-Main.rb"

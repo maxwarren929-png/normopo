@@ -1,0 +1,17 @@
+[project]
+name = "Pokémon Normanhurst"
+slug = "pokemon-normanhurst"
+start = [201, 3, 8]
+
+[essentials]
+path = "../demo/essentials"
+
+[package]
+# Unreferenced imported track; older Windows ZIP extraction garbles its name.
+# Only this edition's title assets ship; the rest are showcase presets.
+exclude = ["Audio/BGM/Routé 1.mid", "Graphics/MODTS"]
+keep = [
+  "Graphics/MODTS/pokemon-normanhurst.png",
+  "Graphics/MODTS/classic-start.png",
+  "Graphics/MODTS/Backgrounds/normanhurst-title.png",
+]
