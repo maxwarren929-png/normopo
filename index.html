@@ -50,10 +50,11 @@
 (()=>{
 'use strict';
 const expected={"size": 201303236, "sha256": "bc038f1d01012ca26e69d5136e28f260cf8f75c887a4615e53e6d689e0c9f899"};
+const runtimeExpected={"size": 42539967, "sha256": "9eb318ba1e8691fbf155d879c0f63df4a85cf295342a2ec93ad653b1636a8f7a"};
 const originalFetch=window.fetch.bind(window);
 const base=new URL('.',document.baseURI);
 const target=new URL('knight-blade-howling-of-kerberos.mkxpz',base);
-const manifestURL=new URL('game-manifest.json',base);
+const runtimeTarget=new URL('mkxp-z_libretro.wasm',base);
 const hex=bytes=>Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');
 async function readWithRetry(url,options,consume){
  for(let attempt=0;attempt<3;attempt++){
@@ -75,27 +76,32 @@ window.fetch=async function(input,init){
  let url;
  try {url=new URL(input instanceof Request?input.url:String(input),document.baseURI)}
  catch {return originalFetch(input,init)}
- if(url.origin!==location.origin||url.pathname!==target.pathname||url.search||url.hash)
+ const isRuntime=runtimeExpected!==null&&url.pathname===runtimeTarget.pathname;
+ if(url.origin!==location.origin||(!isRuntime&&url.pathname!==target.pathname)||url.search||url.hash)
   return originalFetch(input,init);
+ const identity=isRuntime?runtimeExpected:expected;
+ const prefix=isRuntime?'engine-chunks':'chunks';
+ const manifestURL=new URL(isRuntime?'engine-manifest.json':'game-manifest.json',base);
  const method=(init?.method||(input instanceof Request?input.method:'GET')).toUpperCase();
  if(method!=='GET'&&method!=='HEAD')return originalFetch(input,init);
  const options={signal:init?.signal||(input instanceof Request?input.signal:undefined)};
  const manifest=await readWithRetry(manifestURL,options,response=>response.json());
- if(manifest.version!==1||manifest.size!==expected.size||manifest.sha256!==expected.sha256||
-    !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid game manifest');
+ if(manifest.version!==1||manifest.size!==identity.size||manifest.sha256!==identity.sha256||
+    !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid '+(isRuntime?'engine':'game')+' manifest');
  let total=0;
  for(const [index,chunk] of manifest.chunks.entries()){
   if(!Number.isSafeInteger(chunk.size)||chunk.size<=0||chunk.size>=100*1024*1024||
      !/^[a-f0-9]{64}$/.test(chunk.sha256)||
-     chunk.url!=='chunks/'+String(index).padStart(5,'0')+'-'+chunk.sha256+'.bin')
+     chunk.url!==prefix+'/'+String(index).padStart(5,'0')+'-'+chunk.sha256+'.bin')
    throw Error('Invalid game chunk');
   total+=chunk.size;
  }
- if(total!==expected.size)throw Error('Invalid game length');
- const headers={'Content-Type':'application/octet-stream','Content-Length':String(total)};
+ if(total!==identity.size)throw Error('Invalid download length');
+ const headers={'Content-Type':isRuntime?'application/wasm':'application/octet-stream','Content-Length':String(total)};
  if(method==='HEAD')return new Response(null,{headers});
  const chunks=[];
- for(const chunk of manifest.chunks){
+ for(const [index,chunk] of manifest.chunks.entries()){
+  if(isRuntime){const status=document.getElementById?.('cli-loading');if(status)status.textContent='Downloading browser engine: part '+(index+1)+' of '+manifest.chunks.length+'.'}
   const bytes=await readWithRetry(new URL(chunk.url,base),options,async part=>{
    const bytes=await part.arrayBuffer();
    if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
@@ -104,7 +110,8 @@ window.fetch=async function(input,init){
   });
   chunks.push(bytes);
  }
- return new Response(new Blob(chunks,{type:'application/octet-stream'}),{headers});
+ if(isRuntime){const status=document.getElementById?.('cli-loading');if(status)status.textContent='Browser engine downloaded. Waiting for game startup.'}
+ return new Response(new Blob(chunks,{type:headers['Content-Type']}),{headers});
 };
 })();
 </script>

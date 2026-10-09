@@ -9,7 +9,7 @@ import zipfile
 
 from tools.export_web_site import (
     ASSETS, ENTRY_URL, MAIN_JS, MAX_CHUNK_SIZE, archive_credits,
-    cached_assets, export_site, fetch_shim, split_archive,
+    cached_assets, export_site, fetch_shim, split_archive, split_engine,
 )
 
 
@@ -250,6 +250,36 @@ const input=JSON.parse(require('node:fs').readFileSync(0,'utf8'));
             "manifest": manifest, "files": files, "shim": shim,
             "original": list(self.archive.read_bytes()),
         }), text=True, capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_engine_chunks_reassemble_exact_bytes_and_retry_only_failed_part(self):
+        data = b'\x00asm\x01\x00\x00\x00' + bytes(range(40))
+        manifest = split_engine(data, self.output, chunk_size=16)
+        files = {part['url']: list((self.output / part['url']).read_bytes()) for part in manifest['chunks']}
+        script = r'''
+const vm=require('node:vm'),assert=require('node:assert/strict');
+const input=JSON.parse(require('node:fs').readFileSync(0,'utf8'));
+(async()=>{
+ const calls={};let events=[];
+ const window={dispatchEvent:e=>events.push(e),fetch:async url=>{
+  const name=new URL(url).pathname.slice('/normopo/'.length);calls[name]=(calls[name]||0)+1;
+  if(name==='engine-manifest.json')return Response.json(input.manifest);
+  if(name===input.manifest.chunks[1].url&&calls[name]===1)throw new TypeError('Failed to fetch');
+  return new Response(Uint8Array.from(input.files[name]));
+ }};
+ vm.runInNewContext(input.shim,{window,location:{origin:'https://example.test'},document:{baseURI:'https://example.test/normopo/'},URL,Request,Response,Blob,Uint8Array,crypto:require('node:crypto').webcrypto,setTimeout:fn=>fn(),CustomEvent:class{}});
+ const response=await window.fetch('https://example.test/normopo/mkxp-z_libretro.wasm');
+ assert.equal(response.headers.get('Content-Type'),'application/wasm');
+ assert.equal(response.headers.get('Content-Length'),String(input.data.length));
+ assert.deepEqual(Array.from(new Uint8Array(await response.arrayBuffer())),input.data);
+ assert.equal(calls[input.manifest.chunks[0].url],1);
+ assert.equal(calls[input.manifest.chunks[1].url],2);
+ assert.equal(calls[input.manifest.chunks[2].url],1);
+ assert.equal(events.length,0);
+})().catch(e=>{console.error(e);process.exitCode=1});
+'''
+        shim = fetch_shim({'size': 1, 'sha256': 'a' * 64}, manifest).removeprefix('<script>\n').removesuffix('</script>\n')
+        result = subprocess.run(['node', '-e', script], input=json.dumps({'shim': shim, 'files': files, 'manifest': manifest, 'data': list(data)}), capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
 
 

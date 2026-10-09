@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "size": 42539967,
+  "sha256": "9eb318ba1e8691fbf155d879c0f63df4a85cf295342a2ec93ad653b1636a8f7a",
+  "mime": "application/wasm",
+  "browser_compile_passed": true,
+  "direct_large_wasm_requests": 0,
+  "chunk_count": 11,
+  "max_chunk_size": 4194304,
+  "injected_failure_recovered": true,
+  "full_gameplay_verified": false
+}

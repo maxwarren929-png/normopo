@@ -67,6 +67,23 @@ def split_archive(archive: Path, output: Path, chunk_size: int = DEFAULT_CHUNK_S
     return manifest
 
 
+def split_engine(data: bytes, output: Path, chunk_size: int = 4 * MIB) -> dict:
+    """Preserve the pinned WASM binary, using small hash-verified transfers."""
+    validate_chunk_size(chunk_size)
+    if not data:
+        raise ValueError('Engine binary must not be empty')
+    chunks = []
+    for index, offset in enumerate(range(0, len(data), chunk_size)):
+        part = data[offset:offset + chunk_size]
+        sha = hashlib.sha256(part).hexdigest()
+        name = f'engine-chunks/{index:05d}-{sha}.bin'
+        write_new(output / name, part)
+        chunks.append({'url': name, 'size': len(part), 'sha256': sha})
+    manifest = {'version': 1, 'size': len(data), 'sha256': hashlib.sha256(data).hexdigest(), 'chunks': chunks}
+    write_new(output / 'engine-manifest.json', (json.dumps(manifest, indent=2) + '\n').encode())
+    return manifest
+
+
 def cached_assets(cache: Path) -> dict:
     """Use only the exact sample URLs, and verify cache metadata and bytes."""
     result = {}
@@ -133,17 +150,18 @@ process.stdout.write(JSON.stringify({js:patchPlayerJS(input.source,input.identit
     return patched["js"].encode("utf-8"), patched["support"], patched["bootstrap"]
 
 
-def fetch_shim(identity: dict) -> str:
+def fetch_shim(identity: dict, runtime_identity: dict | None = None) -> str:
     # Pin manifest identity in the HTML. Hash only individual chunks, not a
     # second full-archive ArrayBuffer. The frontend's cache key is patched too.
     config = json.dumps({"size": identity["size"], "sha256": identity["sha256"]})
     return "<script>\n" + r"""(()=>{
 'use strict';
 const expected=CONFIG;
+const runtimeExpected=RUNTIME_CONFIG;
 const originalFetch=window.fetch.bind(window);
 const base=new URL('.',document.baseURI);
 const target=new URL('knight-blade-howling-of-kerberos.mkxpz',base);
-const manifestURL=new URL('game-manifest.json',base);
+const runtimeTarget=new URL('mkxp-z_libretro.wasm',base);
 const hex=bytes=>Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');
 async function readWithRetry(url,options,consume){
  for(let attempt=0;attempt<3;attempt++){
@@ -165,27 +183,32 @@ window.fetch=async function(input,init){
  let url;
  try {url=new URL(input instanceof Request?input.url:String(input),document.baseURI)}
  catch {return originalFetch(input,init)}
- if(url.origin!==location.origin||url.pathname!==target.pathname||url.search||url.hash)
+ const isRuntime=runtimeExpected!==null&&url.pathname===runtimeTarget.pathname;
+ if(url.origin!==location.origin||(!isRuntime&&url.pathname!==target.pathname)||url.search||url.hash)
   return originalFetch(input,init);
+ const identity=isRuntime?runtimeExpected:expected;
+ const prefix=isRuntime?'engine-chunks':'chunks';
+ const manifestURL=new URL(isRuntime?'engine-manifest.json':'game-manifest.json',base);
  const method=(init?.method||(input instanceof Request?input.method:'GET')).toUpperCase();
  if(method!=='GET'&&method!=='HEAD')return originalFetch(input,init);
  const options={signal:init?.signal||(input instanceof Request?input.signal:undefined)};
  const manifest=await readWithRetry(manifestURL,options,response=>response.json());
- if(manifest.version!==1||manifest.size!==expected.size||manifest.sha256!==expected.sha256||
-    !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid game manifest');
+ if(manifest.version!==1||manifest.size!==identity.size||manifest.sha256!==identity.sha256||
+    !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid '+(isRuntime?'engine':'game')+' manifest');
  let total=0;
  for(const [index,chunk] of manifest.chunks.entries()){
   if(!Number.isSafeInteger(chunk.size)||chunk.size<=0||chunk.size>=100*1024*1024||
      !/^[a-f0-9]{64}$/.test(chunk.sha256)||
-     chunk.url!=='chunks/'+String(index).padStart(5,'0')+'-'+chunk.sha256+'.bin')
+     chunk.url!==prefix+'/'+String(index).padStart(5,'0')+'-'+chunk.sha256+'.bin')
    throw Error('Invalid game chunk');
   total+=chunk.size;
  }
- if(total!==expected.size)throw Error('Invalid game length');
- const headers={'Content-Type':'application/octet-stream','Content-Length':String(total)};
+ if(total!==identity.size)throw Error('Invalid download length');
+ const headers={'Content-Type':isRuntime?'application/wasm':'application/octet-stream','Content-Length':String(total)};
  if(method==='HEAD')return new Response(null,{headers});
  const chunks=[];
- for(const chunk of manifest.chunks){
+ for(const [index,chunk] of manifest.chunks.entries()){
+  if(isRuntime){const status=document.getElementById?.('cli-loading');if(status)status.textContent='Downloading browser engine: part '+(index+1)+' of '+manifest.chunks.length+'.'}
   const bytes=await readWithRetry(new URL(chunk.url,base),options,async part=>{
    const bytes=await part.arrayBuffer();
    if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
@@ -194,10 +217,11 @@ window.fetch=async function(input,init){
   });
   chunks.push(bytes);
  }
- return new Response(new Blob(chunks,{type:'application/octet-stream'}),{headers});
+ if(isRuntime){const status=document.getElementById?.('cli-loading');if(status)status.textContent='Browser engine downloaded. Waiting for game startup.'}
+ return new Response(new Blob(chunks,{type:headers['Content-Type']}),{headers});
 };
 })();
-""".replace("CONFIG", config) + "</script>\n"
+""".replace("RUNTIME_CONFIG", json.dumps(None if runtime_identity is None else {key: runtime_identity[key] for key in ('size', 'sha256')})).replace("CONFIG", config) + "</script>\n"
 
 
 PAGES_WORKFLOW = """name: Deploy Pages
@@ -284,12 +308,13 @@ def export_site(archive: Path, output: Path, cache: Path = DEFAULT_CACHE,
     credits = archive_credits(archive)
     output.mkdir(parents=True, exist_ok=True)
     manifest = split_archive(archive, output, chunk_size)
+    runtime_manifest = split_engine(assets['mkxp-z_libretro.wasm'][0], output)
     js, support, bootstrap = patch_frontend(assets[MAIN_JS][0], manifest)
     new_module = "assets/normanhurst-" + hashlib.sha256(js).hexdigest() + ".js"
     html = assets["index.html"][0].decode("utf-8")
     for before, after in (("<title>mkxp-z-nostalgist</title>", bootstrap + "<title>Pokémon Normanhurst</title>"),
                           ('<script type="module" crossorigin src="./' + MAIN_JS + '"></script>',
-                           fetch_shim(manifest) + '<script type="module" crossorigin src="./' + new_module + '"></script>'),
+                           fetch_shim(manifest, runtime_manifest) + '<script type="module" crossorigin src="./' + new_module + '"></script>'),
                           ("</body>", support + "</body>")):
         if html.count(before) != 1:
             raise ValueError("Upstream HTML changed: " + before)
