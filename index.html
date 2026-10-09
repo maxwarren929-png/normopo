@@ -25,6 +25,17 @@
   try{sessionStorage.setItem(key,String(attempts))}catch{failure();return false}
   location.reload();return true;
  };
+ window.addEventListener('cli-download-error',event=>{
+  const show=()=>{
+   document.getElementById('cli-loading')?.remove();
+   const progress=document.getElementById('progressbar-target');if(progress)progress.style.display='none';
+   let message=document.getElementById('cli-download-error');
+   if(!message){message=document.createElement('p');message.id='cli-download-error';message.style.cssText='position:fixed;inset:20px;z-index:2000;background:#111;color:white;padding:24px;font:18px system-ui';document.body.appendChild(message)}
+   message.textContent=String(event.detail)+' Check your connection, then retry. Your saved game has not been cleared.';
+   if(!document.getElementById('cli-download-retry')){const retry=document.createElement('button');retry.id='cli-download-retry';retry.textContent='Retry download';retry.style.cssText='position:fixed;bottom:40px;left:40px;z-index:2001;padding:12px;font:18px system-ui';retry.onclick=()=>location.reload();document.body.appendChild(retry)}
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',show,{once:true});else show();
+ });
  // Every asset is same-origin. Safari does not need credentialless COEP.
  window.coi={...window.coi,coepCredentialless:()=>false,doReload:window.__cliReload};
  window.addEventListener('cli-player-ready',()=>{attempts=0;try{sessionStorage.removeItem(key)}catch{}});
@@ -44,6 +55,22 @@ const base=new URL('.',document.baseURI);
 const target=new URL('knight-blade-howling-of-kerberos.mkxpz',base);
 const manifestURL=new URL('game-manifest.json',base);
 const hex=bytes=>Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');
+async function readWithRetry(url,options,consume){
+ for(let attempt=0;attempt<3;attempt++){
+  try{
+   const response=await originalFetch(url,options);
+   if(!response.ok)throw Error('HTTP '+response.status);
+   return await consume(response);
+  }catch(error){
+   if(error?.name==='AbortError')throw error;
+   if(attempt<2){await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));continue}
+   const failure=Error('Could not download '+new URL(url,base).pathname.split('/').pop()+' after 3 attempts: '+error.message);
+   failure.cliDownloadFinal=true;
+   window.dispatchEvent(new CustomEvent('cli-download-error',{detail:failure.message}));
+   throw failure;
+  }
+ }
+}
 window.fetch=async function(input,init){
  let url;
  try {url=new URL(input instanceof Request?input.url:String(input),document.baseURI)}
@@ -53,9 +80,7 @@ window.fetch=async function(input,init){
  const method=(init?.method||(input instanceof Request?input.method:'GET')).toUpperCase();
  if(method!=='GET'&&method!=='HEAD')return originalFetch(input,init);
  const options={signal:init?.signal||(input instanceof Request?input.signal:undefined)};
- const response=await originalFetch(manifestURL,options);
- if(!response.ok)throw Error('Game manifest unavailable: '+response.status);
- const manifest=await response.json();
+ const manifest=await readWithRetry(manifestURL,options,response=>response.json());
  if(manifest.version!==1||manifest.size!==expected.size||manifest.sha256!==expected.sha256||
     !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid game manifest');
  let total=0;
@@ -71,18 +96,19 @@ window.fetch=async function(input,init){
  if(method==='HEAD')return new Response(null,{headers});
  const chunks=[];
  for(const chunk of manifest.chunks){
-  const part=await originalFetch(new URL(chunk.url,base),options);
-  if(!part.ok)throw Error('Game chunk unavailable: '+part.status);
-  const bytes=await part.arrayBuffer();
-  if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
-   throw Error('Game chunk verification failed');
+  const bytes=await readWithRetry(new URL(chunk.url,base),options,async part=>{
+   const bytes=await part.arrayBuffer();
+   if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
+    throw Error('Game chunk verification failed');
+   return bytes;
+  });
   chunks.push(bytes);
  }
  return new Response(new Blob(chunks,{type:'application/octet-stream'}),{headers});
 };
 })();
 </script>
-<script type="module" crossorigin src="./assets/normanhurst-5526a47447864eee49a0579f82873162b1a62dc81609ee7d966c7aeb2c4d4ff6.js"></script>
+<script type="module" crossorigin src="./assets/normanhurst-5cbe08a43b70d02bad6cc33972adc4f1264d94cb029bf371ff9a5eaeb747fd4b.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-lP0ZUypO.css">
   </head>
   <body

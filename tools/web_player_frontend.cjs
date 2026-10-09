@@ -8,6 +8,10 @@ function replaceOnce(source,before,after){
 }
 
 function patchPlayerJS(source,identity){
+ const {downloadPlayerAsset}=require('./web_player_download.cjs');
+ source=replaceOnce(source,'i=await(await fetch(n).then(O({onProgress:t=>{Bn+=t.transferred-e,e=t.transferred,Hn(),Rn!==null&&(In.stop(),Rn.style.display=`initial`)}}))).blob()',
+  'i=await downloadPlayerAsset(n,async r=>(await O({onProgress:t=>{Bn+=t.transferred-e,e=t.transferred,Hn(),Rn!==null&&(In.stop(),Rn.style.display=`initial`)}})(r)).blob(),()=>{Bn-=e;e=0;Hn()})');
+ source=downloadPlayerAsset.toString()+'\n'+source;
  // Keep the known-working XP C binding; map physical Enter to it in the UI.
  source=replaceOnce(source,'input_player1_a:`c`','input_player1_up:`up`,input_player1_down:`down`,input_player1_left:`left`,input_player1_right:`right`,input_player1_a:`c`');
  source=replaceOnce(source,'element:`#nostalgist-canvas`,retroarchConfig:',

@@ -145,6 +145,22 @@ const base=new URL('.',document.baseURI);
 const target=new URL('knight-blade-howling-of-kerberos.mkxpz',base);
 const manifestURL=new URL('game-manifest.json',base);
 const hex=bytes=>Array.from(new Uint8Array(bytes),b=>b.toString(16).padStart(2,'0')).join('');
+async function readWithRetry(url,options,consume){
+ for(let attempt=0;attempt<3;attempt++){
+  try{
+   const response=await originalFetch(url,options);
+   if(!response.ok)throw Error('HTTP '+response.status);
+   return await consume(response);
+  }catch(error){
+   if(error?.name==='AbortError')throw error;
+   if(attempt<2){await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));continue}
+   const failure=Error('Could not download '+new URL(url,base).pathname.split('/').pop()+' after 3 attempts: '+error.message);
+   failure.cliDownloadFinal=true;
+   window.dispatchEvent(new CustomEvent('cli-download-error',{detail:failure.message}));
+   throw failure;
+  }
+ }
+}
 window.fetch=async function(input,init){
  let url;
  try {url=new URL(input instanceof Request?input.url:String(input),document.baseURI)}
@@ -154,9 +170,7 @@ window.fetch=async function(input,init){
  const method=(init?.method||(input instanceof Request?input.method:'GET')).toUpperCase();
  if(method!=='GET'&&method!=='HEAD')return originalFetch(input,init);
  const options={signal:init?.signal||(input instanceof Request?input.signal:undefined)};
- const response=await originalFetch(manifestURL,options);
- if(!response.ok)throw Error('Game manifest unavailable: '+response.status);
- const manifest=await response.json();
+ const manifest=await readWithRetry(manifestURL,options,response=>response.json());
  if(manifest.version!==1||manifest.size!==expected.size||manifest.sha256!==expected.sha256||
     !Array.isArray(manifest.chunks)||manifest.chunks.length===0)throw Error('Invalid game manifest');
  let total=0;
@@ -172,11 +186,12 @@ window.fetch=async function(input,init){
  if(method==='HEAD')return new Response(null,{headers});
  const chunks=[];
  for(const chunk of manifest.chunks){
-  const part=await originalFetch(new URL(chunk.url,base),options);
-  if(!part.ok)throw Error('Game chunk unavailable: '+part.status);
-  const bytes=await part.arrayBuffer();
-  if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
-   throw Error('Game chunk verification failed');
+  const bytes=await readWithRetry(new URL(chunk.url,base),options,async part=>{
+   const bytes=await part.arrayBuffer();
+   if(bytes.byteLength!==chunk.size||hex(await crypto.subtle.digest('SHA-256',bytes))!==chunk.sha256)
+    throw Error('Game chunk verification failed');
+   return bytes;
+  });
   chunks.push(bytes);
  }
  return new Response(new Blob(chunks,{type:'application/octet-stream'}),{headers});
@@ -283,7 +298,16 @@ def export_site(archive: Path, output: Path, cache: Path = DEFAULT_CACHE,
     write_new(output / new_module, js)
     for name in ASSETS:
         if name != MAIN_JS:
-            write_new(output / name, assets[name][0])
+            data = assets[name][0]
+            if name.endswith('.css'):
+                # The sample CSS refers to font files absent from its pinned
+                # asset set. Use system UI fonts for the loader/controls only.
+                # In-game FireRed bitmap fonts are untouched.
+                import re
+                text = re.sub(r'@font-face\{[^}]*\}', '', data.decode('utf-8'))
+                text = text.replace('font-family:Roboto', 'font-family:system-ui')
+                data = text.encode('utf-8')
+            write_new(output / name, data)
     for name, data in credits.items():
         write_new(output / "credits" / name, data)
     write_new(output / "THIRD-PARTY.md", third_party(assets).encode("utf-8"))

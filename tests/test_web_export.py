@@ -15,6 +15,7 @@ from tools.export_web_site import (
 
 # These are the exact source anchors the shared frontend helper expects.
 FRONTEND_FIXTURE = '''input_player1_a:`c`;
+i=await(await fetch(n).then(O({onProgress:t=>{Bn+=t.transferred-e,e=t.transferred,Hn(),Rn!==null&&(In.stop(),Rn.style.display=`initial`)}}))).blob();
 element:`#nostalgist-canvas`,retroarchConfig:{};
 xn=new URL(`./Standard.mkxpz`,location.href).toString();
 wn=22882414,
@@ -220,9 +221,9 @@ const input=JSON.parse(require('node:fs').readFileSync(0,'utf8'));
    }
    return new Response('passthrough');
   };
-  const window={fetch:original};
+  const window={fetch:original,dispatchEvent:()=>{}};
   vm.runInNewContext(input.shim,{window,document:{baseURI:base},location:{origin:'https://example.test'},
-   URL,Request,Response,Blob,crypto,Uint8Array});
+   URL,Request,Response,Blob,crypto,Uint8Array,setTimeout:fn=>fn(),CustomEvent:class{constructor(type,options){this.type=type;this.detail=options.detail}}});
   const result=await window.fetch(base+'knight-blade-howling-of-kerberos.mkxpz');
   assert.equal(result.headers.get('Content-Length'),String(input.manifest.size));
   assert.deepEqual(Array.from(new Uint8Array(await result.arrayBuffer())),input.original);

@@ -22,6 +22,17 @@ const BOOTSTRAP = `<script>
   try{sessionStorage.setItem(key,String(attempts))}catch{failure();return false}
   location.reload();return true;
  };
+ window.addEventListener('cli-download-error',event=>{
+  const show=()=>{
+   document.getElementById('cli-loading')?.remove();
+   const progress=document.getElementById('progressbar-target');if(progress)progress.style.display='none';
+   let message=document.getElementById('cli-download-error');
+   if(!message){message=document.createElement('p');message.id='cli-download-error';message.style.cssText='position:fixed;inset:20px;z-index:2000;background:#111;color:white;padding:24px;font:18px system-ui';document.body.appendChild(message)}
+   message.textContent=String(event.detail)+' Check your connection, then retry. Your saved game has not been cleared.';
+   if(!document.getElementById('cli-download-retry')){const retry=document.createElement('button');retry.id='cli-download-retry';retry.textContent='Retry download';retry.style.cssText='position:fixed;bottom:40px;left:40px;z-index:2001;padding:12px;font:18px system-ui';retry.onclick=()=>location.reload();document.body.appendChild(retry)}
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',show,{once:true});else show();
+ });
  // Every asset is same-origin. Safari does not need credentialless COEP.
  window.coi={...window.coi,coepCredentialless:()=>false,doReload:window.__cliReload};
  window.addEventListener('cli-player-ready',()=>{attempts=0;try{sessionStorage.removeItem(key)}catch{}});

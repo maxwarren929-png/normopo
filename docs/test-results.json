@@ -362,5 +362,19 @@
     "full_story_playthrough": false,
     "browser_gameplay_verified": false,
     "development_room_unchanged": true
+  },
+  "browser_download_retry": {
+    "focused_node_cases": 10,
+    "exporter_cases": 9,
+    "chrome_injected_failure": {
+      "passed": true,
+      "attempts": 3,
+      "message": "Could not download mkxp-z_libretro.wasm after 3 attempts: HTTP 503 Check your connection, then retry. Your saved game has not been cleared.",
+      "font404s": []
+    },
+    "screenshot_inspected": true,
+    "user_87_percent_cause_identified": false,
+    "user_laptop_fix_verified": false,
+    "game_archive_unchanged": true
   }
 }

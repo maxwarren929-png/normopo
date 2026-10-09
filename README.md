@@ -28,6 +28,8 @@ Approved Mega balance: Tyranitar is Rock/Fire, Thermal Armor, 685 BST. Honchkrow
 
 [Mr Lin and Mr Howel](docs/elite-four-lin-howel.md): one Elite Four doubles duo, six Pokémon each, provisional level 95. Mr Lin has our Mega Tyranitar; Mr Howel uses the approved sound-themed team. Select them at the development-room battle NPC. The approved compact map redesign is now included.
 
+[Download retries](docs/browser-download-retries.md): interrupted downloads get up to three attempts and show the failed filename with a retry button instead of leaving an unexplained percentage. Missing loader font requests are removed. This does not clear saves; persistent network blocks can still require troubleshooting.
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.
