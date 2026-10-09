@@ -12,7 +12,7 @@ def main():
     project = Project(ROOT / 'normanhurst')
     runtime = Runtime(project.root / 'runtimes/linux-x86_64', 'linux-x86_64')
     game = release_game(project, runtime, default_xvfb())
-    out = project.root / 'build/own-region-review'
+    out = project.root / ('build/map-redesign-review/native' if '--redesign' in sys.argv else 'build/own-region-review')
     out.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.own-region-', dir=project.root / 'build') as temp:
         root = Path(temp) / 'game'

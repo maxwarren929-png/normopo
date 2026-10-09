@@ -6,6 +6,8 @@ Experimental browser demo. Click the play symbol if prompted, then wait for the 
 
 [Own-region opening](docs/own-region-opening.md): New Game now starts in your house. Visit Mum and Ms Harman's lab, choose a starter, then investigate the station cancellation and Bush Track sabotage. The next town and Max's story Gym are not built yet. Existing development-room saves can choose **Menu → Story opening**. In the opening, **Menu → Development room** returns to the test features.
 
+[Compact map redesign](docs/opening-map-redesign-review.md): furnished house/lab, rebuilt station forecourt and platform, physical doors/boards, no floating entrance labels. Older opening saves reload the new maps and recover blocked positions without resetting Pokémon or story progress.
+
 The separate development room has the gacha and Gym Leader challenge NPCs, plus a storage PC at `[6,2]`. The pause menu also has a PC shortcut. [Cleanup notes](docs/two-npc-room.md).
 
 [Banner navigation and PC update](docs/banner-controls-pc.md): both-direction banner cycling was checked, and the storage box screen opens from the new terminal.
@@ -24,7 +26,7 @@ Approved Mega balance: Tyranitar is Rock/Fire, Thermal Armor, 685 BST. Honchkrow
 
 [Mega Breloom](docs/mega-breloom.md): Isaac now has a Mega-capable Breloom with the selected IF art. Players receive Breloomite through the website gift. Provisional Grass/Fighting, Technician, 560 BST.
 
-[Mr Lin and Mr Howel](docs/elite-four-lin-howel.md): one Elite Four doubles duo, six Pokémon each, provisional level 95. Mr Lin has our Mega Tyranitar; Mr Howel uses the approved sound-themed team. Select them at the development-room battle NPC. The map redesign is still awaiting review and is not included in this update.
+[Mr Lin and Mr Howel](docs/elite-four-lin-howel.md): one Elite Four doubles duo, six Pokémon each, provisional level 95. Mr Lin has our Mega Tyranitar; Mr Howel uses the approved sound-themed team. Select them at the development-room battle NPC. The approved compact map redesign is now included.
 
 ## Gacha
 

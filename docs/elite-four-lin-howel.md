@@ -32,4 +32,4 @@ Compilation passed. The isolated native probe loaded both exact six-member roste
 
 No complete twelve-opponent battle, Mega animation sequence or new browser gameplay is claimed. Enemy Mega eligibility is checked, not a claim that the AI has already been observed evolving Tyranitar in a full match.
 
-The release is built from the previously published maps/start/private Tilesets, with only the battle addition. The unapproved local compact-map redesign and its new assets are excluded. Local map-review files and private browser state are not published. The existing buffered/deferred/no-path-cache/GPU-gacha/website-Mega-gift build options remain enabled.
+The initial duo release preserved the previous maps and excluded the then-unapproved compact-map draft. The following user-approved map release includes the redesign while retaining both trainer rosters and this doubles challenge. Local map-review files and private browser state are not published. The existing buffered/deferred/no-path-cache/GPU-gacha/website-Mega-gift build options remain enabled.

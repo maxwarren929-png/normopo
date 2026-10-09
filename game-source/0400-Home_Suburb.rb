@@ -101,7 +101,11 @@ module HomeSuburb
       return
     end
     return unless pbConfirmMessage("Rival: Ready for our first Pokemon battle?")
-    opponent = NPCTrainer.new("Rival", :POKEMONTRAINER_Red)
+    trainer_type = :POKEMONTRAINER_Red
+    if defined?(CLINormanhurstGacha) && CLINormanhurstGacha.available? && $game_map.map_id == 202
+      trainer_type = :RIVAL1
+    end
+    opponent = NPCTrainer.new("Rival", trainer_type)
     opponent.party = [Pokemon.new(state[:rival], 5, opponent)]
     opponent.lose_text = "That was close! We'll have a rematch soon!"
     original_rules = $game_temp.battle_rules.dup

@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "eb106c577c4730fc11d1a1933c67ff21f7ecf9301e13b246675131cad9f60d0d",
+  "game_archive_sha256": "bc038f1d01012ca26e69d5136e28f260cf8f75c887a4615e53e6d689e0c9f899",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -155,7 +155,212 @@
     "full_battle_playthrough": false,
     "native_screenshot_inspected": true,
     "level_matching_fixture": "all nine challenges passed",
-    "map_redesign_published": false,
+    "map_redesign_published": true,
     "browser_playthrough_verified": false
+  },
+  "compact_opening": {
+    "passed": true,
+    "maps": [
+      {
+        "map": 201,
+        "reachable": [
+          [
+            [
+              5,
+              9
+            ],
+            true
+          ],
+          [
+            [
+              6,
+              5
+            ],
+            true
+          ],
+          [
+            [
+              3,
+              8
+            ],
+            true
+          ]
+        ]
+      },
+      {
+        "map": 202,
+        "reachable": [
+          [
+            [
+              7,
+              4
+            ],
+            true
+          ],
+          [
+            [
+              9,
+              5
+            ],
+            true
+          ],
+          [
+            [
+              10,
+              5
+            ],
+            true
+          ],
+          [
+            [
+              11,
+              5
+            ],
+            true
+          ],
+          [
+            [
+              7,
+              9
+            ],
+            true
+          ]
+        ]
+      },
+      {
+        "map": 200,
+        "reachable": [
+          [
+            [
+              5,
+              8
+            ],
+            true
+          ],
+          [
+            [
+              15,
+              15
+            ],
+            true
+          ],
+          [
+            [
+              16,
+              15
+            ],
+            true
+          ],
+          [
+            [
+              12,
+              8
+            ],
+            true
+          ],
+          [
+            [
+              11,
+              1
+            ],
+            true
+          ]
+        ]
+      },
+      {
+        "map": 203,
+        "reachable": [
+          [
+            [
+              8,
+              11
+            ],
+            true
+          ],
+          [
+            [
+              4,
+              12
+            ],
+            true
+          ],
+          [
+            [
+              4,
+              9
+            ],
+            true
+          ],
+          [
+            [
+              12,
+              11
+            ],
+            true
+          ],
+          [
+            [
+              9,
+              13
+            ],
+            true
+          ],
+          [
+            [
+              10,
+              1
+            ],
+            true
+          ],
+          [
+            [
+              10,
+              14
+            ],
+            true
+          ]
+        ]
+      },
+      {
+        "map": 204,
+        "reachable": [
+          [
+            [
+              18,
+              23
+            ],
+            true
+          ],
+          [
+            [
+              19,
+              23
+            ],
+            true
+          ],
+          [
+            [
+              20,
+              23
+            ],
+            true
+          ],
+          [
+            [
+              12,
+              38
+            ],
+            true
+          ]
+        ]
+      }
+    ],
+    "actual_house_lab_door_transfers": true,
+    "saved_position_recovery": true,
+    "valid_saved_position_preserved": true,
+    "native_screenshots_inspected": true,
+    "full_story_playthrough": false,
+    "browser_gameplay_verified": false,
+    "development_room_unchanged": true
   }
 }

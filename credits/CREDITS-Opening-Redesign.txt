@@ -1,0 +1,19 @@
+Normanhurst opening map redesign
+
+House/lab wall, floor, furniture, door and character artwork: existing imported
+Pokemon Essentials game assets. Room fragments are adapted from Essentials
+Maps 003/004, with furniture assembled from their existing tiles. Original
+Essentials/Nintendo/Game Freak and contributor credits remain applicable.
+
+Station facade and railway carriage: existing credited Cherubi Station/Cattle
+Car artwork assembled by the earlier station tool. See CREDITS-Station.txt.
+Remastered outdoor ground and wooden boards: see CREDITS-Remastered-Maps.txt
+for the full original map/tileset contributor chain and resource links.
+
+Compact layouts, revised transfers, local rail/fence/bench fragments and
+transparent interaction frame: local authoring. The new station atlas combines
+existing art; it does not claim ownership of the source assets or grant a new
+license. Imported artwork is not covered by the CLI's MIT license.
+
+No new portrait is claimed for the rival or the Elite Four duo. Existing
+trainer artwork remains credited to the imported game's contributors.

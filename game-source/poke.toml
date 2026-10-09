@@ -1,7 +1,7 @@
 [project]
 name = "Pokémon Normanhurst"
 slug = "pokemon-normanhurst"
-start = [201, 3, 8]
+start = [201, 5, 9]
 
 [essentials]
 path = "../demo/essentials"

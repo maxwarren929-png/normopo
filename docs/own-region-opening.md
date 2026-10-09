@@ -13,9 +13,9 @@ The game now starts inside the player's house, not the development room. Only se
 | Bush Track | 204 | Remastered Route 1 layout, cropped 24×40 |
 | Development room | 1 | Existing gacha, Gym challenges, PC unchanged |
 
-New Game starts at house `[3,8]`. Talk to Mum, visit Ms Harman, choose a starter, battle the rival and collect supplies/research notes. The station cancellation and fake-maintenance-worker signal incident reuse the existing Ozerim story logic. Reporting back to the professor remains the end of this opening segment. Bush Track has provisional level-2–4 Pidgey, Rattata and Caterpie encounters.
+New Game starts at house `[5,9]`. Talk to Mum, visit Ms Harman, choose a starter, battle the rival and collect supplies/research notes. The station cancellation and fake-maintenance-worker signal incident reuse the existing Ozerim story logic. Reporting back to the professor remains the end of this opening segment. Bush Track has provisional level-2–4 Pidgey, Rattata and Caterpie encounters.
 
-The next town, Max's story Gym, working passenger transport and later chapters are not built yet. Gym challenges in the development room remain tests, not story badges. The interiors/station retain their older prototype layouts and signs; this is a functional opening, not final mapping polish.
+The next town, Max's story Gym, working passenger transport and later chapters are not built yet. Gym challenges in the development room remain tests, not story badges. The compact house/lab and station redesign replaces the earlier oversized floors and floating labels. See `opening-map-redesign-review.md` for the layouts, physical doors, saved-position recovery and native review.
 
 ## Existing saves and development features
 
@@ -37,4 +37,4 @@ Source archive/hash, resource terms and contributor credits are recorded in `rem
 
 All five maps compiled and loaded in the isolated native runtime. Fresh startup from house 201 passed. Reachability checks passed for the house/lab approaches, town doors/station path, station staff/colleague/track approach and Bush Track story-event approaches. Native house, town, station and track screenshots were inspected. The static layout renderer uses Essentials' exact 48 autotile patterns, not guessed atlas offsets.
 
-The native probe intercepts dialogue and moves between maps. It does not prove the complete rival/grunt story sequence, manual doorway interaction, wild encounters or browser/Safari startup. No new full-story or physical-device playthrough is claimed. The prototype signs and time-of-day outdoor tint remain visible in the screenshots.
+The native probe intercepts dialogue and moves between maps. It does not prove the complete rival/grunt story sequence, manual doorway interaction, wild encounters or browser/Safari startup. No new full-story or physical-device playthrough is claimed. The earlier screenshots recorded prototype signs and real-time outdoor tint. The redesign review captures show physical doors/boards and daylight fixed only in the disposable probe.

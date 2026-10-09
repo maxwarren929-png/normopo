@@ -272,15 +272,14 @@
           "transfer": {
             "map": 203,
             "position": [
-              14,
-              2
+              10,
+              1
             ],
             "direction": 2,
             "fade": true
           }
         }
-      ],
-      "graphic": "Entrance STATION"
+      ]
     },
     {
       "id": 5,
@@ -295,8 +294,8 @@
           "transfer": {
             "map": 203,
             "position": [
-              14,
-              2
+              10,
+              1
             ],
             "direction": 2,
             "fade": true

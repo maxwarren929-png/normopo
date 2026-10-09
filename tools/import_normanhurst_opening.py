@@ -84,7 +84,9 @@ def main():
         if field=='priorities':values[0]=5
         rm.set_field(station,field,rm.UserData('Table',struct.pack('<5i',1,494,1,1,494)+struct.pack('<494h',*values)))
     sets.append(station);data[203][1]['tileset']=27
-    overlay=ROOT/'normanhurst/game/Data';overlay.mkdir(exist_ok=True)
+    overlay=ROOT/'normanhurst/game/Data'
+    assert not overlay.is_symlink(), 'Create an edition-private game/Data directory before importing; preserve shared animation links'
+    overlay.mkdir(exist_ok=True)
     (overlay/'Tilesets.rxdata').write_bytes(rm.dumps(sets))
     for mid,(name,d) in data.items():(DEST/f'{mid:03d}-{name}').write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n')
     metadata=(ROOT/'demo/essentials/PBS/map_metadata.txt').read_text(encoding='utf-8-sig')
@@ -97,6 +99,8 @@ def main():
     (ROOT/'normanhurst/game/PBS/encounters.txt').write_text(encounters)
     credits=(ROOT/'docs/remastered-map-pack-import.md').read_text()+'\n'+(ROOT/'docs/remastered-credits-followup.md').read_text()
     (ROOT/'normanhurst/game/CREDITS-Remastered-Maps.txt').write_text('Selected adapted layouts: Pallet Town and Route 1. Not the Kanto region.\n'+credits)
+    from redesign_normanhurst_opening import redesign
+    redesign()
     print('Normanhurst maps 200-204, exterior tileset 26 and station tileset 27. Map 1 and start preserved.')
 
 if __name__=='__main__':main()
