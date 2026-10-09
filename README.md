@@ -24,6 +24,8 @@ Approved Mega balance: Tyranitar is Rock/Fire, Thermal Armor, 685 BST. Honchkrow
 
 [Mega Breloom](docs/mega-breloom.md): Isaac now has a Mega-capable Breloom with the selected IF art. Players receive Breloomite through the website gift. Provisional Grass/Fighting, Technician, 560 BST.
 
+[Mr Lin and Mr Howel](docs/elite-four-lin-howel.md): one Elite Four doubles duo, six Pokémon each, provisional level 95. Mr Lin has our Mega Tyranitar; Mr Howel uses the approved sound-themed team. Select them at the development-room battle NPC. The map redesign is still awaiting review and is not included in this update.
+
 ## Gacha
 
 Talk to the scientist at `[10,2]`, near the upper-right corner of the test room. You receive **30 tickets once per save**, with a shared **30-pull maximum** across all banners. Extra tickets cannot bypass it.

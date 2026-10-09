@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "trainers": [
+    "Mr Lin",
+    "Mr Howel"
+  ],
+  "party_counts": [
+    6,
+    6
+  ],
+  "level": 95,
+  "custom_mega_eligible": true,
+  "real_double_start_verified": true,
+  "full_battle_playthrough": false
+}

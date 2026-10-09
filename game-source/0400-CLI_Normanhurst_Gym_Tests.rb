@@ -9,7 +9,10 @@ module CLINormanhurstGymTests
     { :name => "Oliver", :gym => 6, :trainer_type => :LEADER_Marlon, :level => 65, :format => :single },
     { :name => "Kaelan", :gym => 8, :trainer_type => :LEADER_Drayden, :level => 85, :format => :single },
     { :name => "Martin", :gym => nil, :trainer_type => :COOLTRAINER_M, :level => 55, :format => :single },
-    { :name => "Isaac", :gym => 5, :trainer_type => :LEADER_Clay, :level => 55, :format => :single }
+    { :name => "Isaac", :gym => 5, :trainer_type => :LEADER_Clay, :level => 55, :format => :single },
+    { :name => "Mr Lin", :gym => nil, :trainer_type => :ELITEFOUR_Will,
+      :partner_name => "Mr Howel", :partner_type => :ELITEFOUR_Lucian,
+      :elite_four => true, :level => 95, :format => :double }
   ].map(&:freeze).freeze
 
   LOAN_TEAM = [
@@ -22,7 +25,10 @@ module CLINormanhurstGymTests
   ].freeze
 
   def self.available?
-    ROSTER.all? { |entry| GameData::Trainer.exists?(entry[:trainer_type], entry[:name], 0) }
+    ROSTER.all? do |entry|
+      GameData::Trainer.exists?(entry[:trainer_type], entry[:name], 0) &&
+        (!entry[:partner_name] || GameData::Trainer.exists?(entry[:partner_type], entry[:partner_name], 0))
+    end
   end
 
   def self.entry(index)
@@ -35,6 +41,17 @@ module CLINormanhurstGymTests
     trainer = pbLoadTrainer(data[:trainer_type], data[:name])
     raise "Normanhurst gym test data is not installed" unless trainer
     trainer
+  end
+
+  def self.opponents(index)
+    data = entry(index)
+    trainers = [opponent(index)]
+    if data[:partner_name]
+      partner = pbLoadTrainer(data[:partner_type], data[:partner_name])
+      raise "Normanhurst duo partner data is not installed" unless partner
+      trainers << partner
+    end
+    trainers
   end
 
   def self.borrowed_party(level)
@@ -63,7 +80,11 @@ module CLINormanhurstGymTests
     return unless available?
     ordered = ROSTER.each_with_index.sort_by { |data, index| [data[:level], data[:gym] ? 0 : 1] }
     commands = ordered.map do |data, index|
-      data[:gym] ? "#{data[:name]} - Gym #{data[:gym]}, Lv. #{data[:level]}" : "#{data[:name]} - Lv. #{data[:level]}"
+      if data[:elite_four]
+        "#{data[:name]} & #{data[:partner_name]} - Elite Four doubles, Lv. #{data[:level]}"
+      else
+        data[:gym] ? "#{data[:name]} - Gym #{data[:gym]}, Lv. #{data[:level]}" : "#{data[:name]} - Lv. #{data[:level]}"
+      end
     end
     choice = pbMessage("Choose a test battle.", commands + ["Cancel"], commands.length + 1)
     return unless choice.between?(0, ordered.length - 1)
@@ -77,7 +98,7 @@ module CLINormanhurstGymTests
     return false unless available?
     data = entry(index)
     if !borrow && $player.party.count { |p| !p.egg? } < (data[:format] == :double ? 2 : 1)
-      pbMessage(data[:format] == :double ? "You need two Pokemon for Karna's double battle." : "You need a Pokemon first.")
+      pbMessage(data[:format] == :double ? "You need two Pokemon for this double battle." : "You need a Pokemon first.")
       return false
     end
     original_party, original_bag, original_stats = $player.party, $bag, $stats
@@ -97,7 +118,7 @@ module CLINormanhurstGymTests
       $game_temp.battle_rules.clear
       setBattleRule(data[:format] == :double ? "double" : "single", "setStyle",
                     "canLose", "noExp", "noMoney", "noBag", "noPartner", "outcome", -1)
-      TrainerBattle.start_core(opponent(index))
+      TrainerBattle.start_core(*opponents(index))
     ensure
       $player.party, $bag, $stats = original_party, original_bag, original_stats
       $player.instance_variable_set(:@pokedex, original_dex)

@@ -20,8 +20,9 @@ class LevelProbePokemon
 end
 module TrainerBattle
   class << self
-    attr_accessor :expected_level, :original_party, :throw_after_check
-    def start_core(opponent)
+    attr_accessor :expected_level, :expected_trainers, :original_party, :throw_after_check
+    def start_core(*opponents)
+      raise 'wrong opponent trainer count' unless opponents.length == @expected_trainers
       raise 'copy identity changed' if $player.party.equal?(@original_party)
       $player.party.each do |pokemon|
         next if pokemon.egg?
@@ -49,6 +50,7 @@ party_dump = Marshal.dump(original_party)
 TrainerBattle.original_party = original_party
 CLINormanhurstGymTests::ROSTER.each_with_index do |entry, index|
   TrainerBattle.expected_level = entry[:level]
+  TrainerBattle.expected_trainers = entry[:partner_name] ? 2 : 1
   raise 'battle result' unless CLINormanhurstGymTests.battle(index, false) == :passed
   raise 'original levels or objects mutated' unless $player.party.equal?(original_party) && Marshal.dump(original_party) == party_dump
   raise 'globals not restored' unless $bag.equal?(original_bag) && $stats.equal?(original_stats) && $game_temp.battle_rules == { :original => true }
@@ -58,7 +60,10 @@ martin = CLINormanhurstGymTests::ROSTER.find { |entry| entry[:name] == 'Martin' 
 raise 'Martin missing or wrong level' unless martin && martin[:level] == 55 && martin[:gym].nil?
 isaac = CLINormanhurstGymTests::ROSTER.find { |entry| entry[:name] == 'Isaac' }
 raise 'Isaac missing or wrong gym/level' unless isaac && isaac[:level] == 55 && isaac[:gym] == 5
+duo = CLINormanhurstGymTests::ROSTER.find { |entry| entry[:elite_four] }
+raise 'duo metadata' unless duo && duo[:name] == 'Mr Lin' && duo[:partner_name] == 'Mr Howel' && duo[:format] == :double && duo[:level] == 95
 TrainerBattle.expected_level = 15
+TrainerBattle.expected_trainers = 1
 TrainerBattle.throw_after_check = true
 begin
   CLINormanhurstGymTests.battle(0, false)
@@ -68,5 +73,5 @@ rescue => error
 end
 raise 'exception restoration failed' unless $player.party.equal?(original_party) && Marshal.dump(original_party) == party_dump && $bag.equal?(original_bag)
 File.write(ENV['CLI_LEVEL_MATCH_RESULT'] || 'level-match-result.txt', 'NORMANHURST_LEVEL_MATCH_UNIT_PASSED')
-puts 'NORMANHURST_LEVEL_MATCH_UNIT_PASSED: all eight challenges; originals and exception restoration'
+puts 'NORMANHURST_LEVEL_MATCH_UNIT_PASSED: all nine challenges, including two-trainer duo; originals and exception restoration'
 exit

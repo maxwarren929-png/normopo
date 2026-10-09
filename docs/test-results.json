@@ -21,7 +21,7 @@
   ],
   "physical_phone_tested": false,
   "browser_save_persistence_tested": false,
-  "game_archive_sha256": "be6d37060b05e4cd2d386ac0f233f8afc0c2a1299ea46128ef70c99ae300a1e8",
+  "game_archive_sha256": "eb106c577c4730fc11d1a1933c67ff21f7ecf9301e13b246675131cad9f60d0d",
   "room_visible_npcs": 2,
   "safari_frontend_fix": {
     "export_tests": 9,
@@ -138,5 +138,24 @@
     "full_story_sequence_verified": false,
     "new_browser_gameplay_verified": false,
     "full_region_complete": false
+  },
+  "elite_four_duo": {
+    "passed": true,
+    "trainers": [
+      "Mr Lin",
+      "Mr Howel"
+    ],
+    "party_counts": [
+      6,
+      6
+    ],
+    "level": 95,
+    "custom_mega_eligible": true,
+    "real_double_start_verified": true,
+    "full_battle_playthrough": false,
+    "native_screenshot_inspected": true,
+    "level_matching_fixture": "all nine challenges passed",
+    "map_redesign_published": false,
+    "browser_playthrough_verified": false
   }
 }

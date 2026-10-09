@@ -1,0 +1,12 @@
+Mr Lin and Mr Howel: user-approved Normanhurst Elite Four doubles duo.
+Mr Lin's roster supplied by the user; Mr Howel's sound-themed roster approved by the user.
+Battle teams/movesets and integration authored locally. Level 95 is provisional.
+
+Trainer artwork remains the existing Essentials Will and Lucian presentation,
+used as placeholders, not claimed as portraits of Mr Lin or Mr Howel.
+No new third-party artwork was imported for this update. Existing Pokémon,
+trainer, DBK intro and other graphics credits/licenses remain applicable.
+
+Mr Lin's Tyranitar uses the previously credited selected Mega artwork and
+custom Rock/Fire form. See CREDITS-Selected-Megas.txt for its provenance.
+This update does not grant new rights or MIT-relicense imported game artwork.
